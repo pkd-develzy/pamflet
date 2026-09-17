@@ -38,10 +38,12 @@ export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, o
 
     await prepareExportEnvironment();
 
+    const isAlur = elementId === 'posterAlurContent';
     const isA4 = paperSize.toLowerCase() === 'a4';
     const isA3 = paperSize.toLowerCase() === 'a3';
-    const formatName = isA4 ? 'A4' : (isA3 ? 'A3' : 'A3Plus_Master');
-    const pdfFormat = isA4 ? 'a4' : (isA3 ? 'a3' : [329, 483]);
+    const formatName = isAlur ? 'A4_Landscape' : (isA4 ? 'A4' : (isA3 ? 'A3' : 'A3Plus_Master'));
+    const pdfFormat = isAlur ? 'a4' : (isA4 ? 'a4' : (isA3 ? 'a3' : [329, 483]));
+    const orientation = isAlur ? 'landscape' : 'portrait';
 
     // pixelRatio 3 provides crystal-clear 300+ DPI resolution without memory crashes
     const dataUrl = await htmlToImage.toPng(element, {
@@ -55,9 +57,9 @@ export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, o
       }
     });
 
-    // Create jsPDF document with exact paper size
+    // Create jsPDF document with exact paper size & orientation
     const doc = new jsPDF({
-      orientation: 'portrait',
+      orientation: orientation,
       unit: 'mm',
       format: pdfFormat,
       compress: true

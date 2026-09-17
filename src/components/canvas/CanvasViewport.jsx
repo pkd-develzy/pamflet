@@ -28,19 +28,22 @@ export default function CanvasViewport() {
       // A3+: 329mm x 483mm ~ 1243px x 1826px (Acuan Utama)
       // A3:  297mm x 420mm ~ 1122px x 1587px
       // A4:  210mm x 297mm ~ 794px x 1122px
+      // Horizontal A4 (Alur Pemilih): 297mm x 210mm ~ 1122px x 794px
       let targetW = 1243;
       let targetH = 1826;
-      if (paperSize === 'a4') {
+
+      if (activeTemplate === 'alur') {
+        targetW = 1122; // Horizontal A4 width
+        targetH = 794;  // Horizontal A4 height
+      } else if (activeTemplate === 'story') {
+        targetW = 1080;
+        targetH = 1920;
+      } else if (paperSize === 'a4') {
         targetW = 794;
         targetH = 1122;
       } else if (paperSize === 'a3') {
         targetW = 1122;
         targetH = 1587;
-      }
-      // Story WA: 1080px wide, single slide fit (1920px tall — show one slide at a time)
-      if (activeTemplate === 'story') {
-        targetW = 1080;
-        targetH = 1920;
       }
 
       const scaleW = vw / targetW;
@@ -52,7 +55,7 @@ export default function CanvasViewport() {
 
     calculateFit();
 
-    // Use ResizeObserver for instant 반응형 adaptation when sidebar opens/closes or layout shifts
+    // Use ResizeObserver for instant adaptation when sidebar opens/closes or layout shifts
     let resizeObserver = null;
     if (typeof ResizeObserver !== 'undefined' && viewportRef.current) {
       resizeObserver = new ResizeObserver(() => {
