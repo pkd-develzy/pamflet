@@ -11,18 +11,18 @@ export default function PosterFooter() {
       {/* Left Box: Posko Sekretariat & Informasi */}
       <div className="posko-box col-span-7 bg-white border border-slate-300 rounded overflow-hidden shadow-xs flex flex-col justify-between">
         {/* Blue Ribbon Header with Gold Hairline */}
-        <div className="bg-gradient-to-r from-[#1e3a8a] to-[#0f2744] text-white px-2.5 py-1.5 flex items-center justify-between shadow-2xs border-b border-amber-400 leading-none">
+        <div className="bg-gradient-to-r from-[#1e3a8a] to-[#0f2744] text-white px-3 py-1.5 sm:py-2 flex items-center justify-between shadow-2xs border-b border-amber-400 leading-none min-h-[26px] sm:min-h-[28px]">
           <div className="flex items-center gap-1.5 leading-none">
-            <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0 self-center" />
+            <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0 self-center -translate-y-[0.5px]" />
             <span
               contentEditable
               suppressContentEditableWarning
-              className="posko-header-title text-[9.5px] sm:text-[10px] font-black uppercase tracking-wider font-sans text-white leading-none inline-block align-middle pt-[1px]"
+              className="posko-header-title text-[9.5px] sm:text-[10px] font-black uppercase tracking-wider font-sans text-white leading-none self-center -translate-y-[1.5px]"
             >
               POSKO SEKRETARIAT &amp; PENGADUAN PILKADES
             </span>
           </div>
-          <div className="text-[7.5px] text-amber-300/80 font-bold uppercase tracking-wider font-sans leading-none self-center">
+          <div className="text-[7.5px] text-amber-300/80 font-bold uppercase tracking-wider font-sans leading-none self-center -translate-y-[1px]">
             RESMI
           </div>
         </div>
@@ -116,7 +116,7 @@ export default function PosterFooter() {
         <div
           contentEditable
           suppressContentEditableWarning
-          className="signature-title text-[9.5px] sm:text-[10px] font-black text-slate-900 tracking-wider uppercase font-sans mt-1 leading-tight"
+          className="signature-title text-[9.5px] sm:text-[10px] font-black text-slate-900 tracking-wider uppercase font-sans mt-1 leading-none -translate-y-[0.5px]"
         >
           PANITIA PEMILIHAN KEPALA DESA
         </div>
@@ -126,7 +126,7 @@ export default function PosterFooter() {
           <InteractiveStamp />
         </div>
 
-        <div className="text-[10px] sm:text-[10.5px] font-bold text-slate-900 pt-0.5 relative z-10 leading-tight">
+        <div className="text-[10px] sm:text-[10.5px] font-bold text-slate-900 pt-0.5 relative z-10 leading-none -translate-y-[0.5px]">
           (&nbsp;<span
             contentEditable
             suppressContentEditableWarning

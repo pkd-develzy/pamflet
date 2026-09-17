@@ -116,15 +116,15 @@ export default function TableBlock({
       className={`table-block-wrapper flex flex-col border border-slate-300 rounded overflow-hidden bg-white shadow-2xs ${className}`}
     >
       {/* Header Bar: Sovereign Executive Style with Gold Hairline */}
-      <div className={`px-2.5 py-1.5 flex items-center justify-between ${themeConfig.bar} select-none shrink-0 leading-none`}>
+      <div className={`table-header-bar px-3 py-1.5 sm:py-2 flex items-center justify-between ${themeConfig.bar} select-none shrink-0 leading-none min-h-[26px] sm:min-h-[30px]`}>
         <div className="flex items-center gap-2 flex-1 min-w-0 leading-none">
-          <span className="inline-flex items-center justify-center shrink-0 self-center">
+          <span className="inline-flex items-center justify-center shrink-0 self-center -translate-y-[0.5px]">
             {themeConfig.icon}
           </span>
           <span
             contentEditable
             suppressContentEditableWarning
-            className="table-header-title font-black text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans text-white drop-shadow-2xs leading-none inline-block align-middle"
+            className="table-header-title font-black text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans text-white drop-shadow-2xs leading-none self-center -translate-y-[1.5px]"
           >
             {title}
           </span>
@@ -139,9 +139,15 @@ export default function TableBlock({
         <table className="w-full h-full border-collapse text-left border border-slate-300">
           <thead>
             <tr className={`border-b border-slate-300 font-extrabold text-[8px] sm:text-[8.5px] uppercase tracking-wider ${themeConfig.th} shrink-0`}>
-              <th className="w-7 text-center py-1.5 px-1 border-r border-slate-300 align-middle leading-tight font-extrabold">{headers[0]}</th>
-              <th className="py-1.5 px-2 border-r border-slate-300 align-middle leading-tight font-extrabold">{headers[1]}</th>
-              <th className="w-32 text-center py-1.5 px-1.5 align-middle leading-tight font-extrabold">{headers[2]}</th>
+              <th className="w-7 text-center py-2 px-1 border-r border-slate-300 align-middle leading-none font-extrabold">
+                <span className="inline-block -translate-y-[0.5px]">{headers[0]}</span>
+              </th>
+              <th className="py-2 px-2.5 border-r border-slate-300 align-middle leading-none font-extrabold">
+                <span className="inline-block -translate-y-[0.5px]">{headers[1]}</span>
+              </th>
+              <th className="w-32 text-center py-2 px-1.5 align-middle leading-none font-extrabold">
+                <span className="inline-block -translate-y-[0.5px]">{headers[2]}</span>
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-200 text-[8px] sm:text-[8.5px] leading-snug text-slate-900 font-sans">
