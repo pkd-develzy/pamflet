@@ -17,7 +17,7 @@ export default function BannerHariH() {
             <span
               contentEditable
               suppressContentEditableWarning
-              className="banner-hari-h-sub text-[8.5px] sm:text-[9.5px] font-black uppercase tracking-wider text-red-700 font-sans leading-none inline-block -translate-y-[1px]"
+              className="banner-hari-h-sub text-[8.5px] sm:text-[9.5px] font-black uppercase tracking-wider text-red-700 font-sans leading-tight inline-block"
             >
               HARI &amp; BULAN PEMUNGUTAN SUARA (PUNCAK PILKADES)
             </span>
@@ -27,7 +27,7 @@ export default function BannerHariH() {
             contentEditable
             suppressContentEditableWarning
             onBlur={e => updateFormField('inputHariTanggal', e.currentTarget.textContent.trim())}
-            className="banner-hari-h-title text-xl sm:text-2xl font-black tracking-wide font-sans text-red-900 my-1 leading-none -translate-y-[1px]"
+            className="banner-hari-h-title text-xl sm:text-2xl font-black tracking-wide font-sans text-red-900 my-1 leading-tight"
           >
             {formData.inputHariTanggal}
           </div>
@@ -96,14 +96,14 @@ export default function BannerHariH() {
           <div
             contentEditable
             suppressContentEditableWarning
-            className="banner-hari-h-cta text-sm sm:text-base font-black tracking-widest uppercase font-sans leading-none text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] -translate-y-[1px]"
+            className="banner-hari-h-cta text-sm sm:text-base font-black tracking-widest uppercase font-sans leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
           >
             GUNAKAN HAK PILIH!
           </div>
           <div
             contentEditable
             suppressContentEditableWarning
-            className="text-[8px] sm:text-[9px] text-white/95 mt-1 leading-none font-medium -translate-y-[0.5px]"
+            className="text-[8px] sm:text-[9px] text-white/95 mt-1 leading-tight font-medium"
           >
             Satu Suara Anda Menentukan Masa Depan Desa {formData.inputNamaDesa}
           </div>

@@ -21,18 +21,18 @@ export default function QrCard({ className = '', style = {} }) {
       className={`qr-card-container table-block-wrapper flex-1 flex flex-col justify-between border-2 border-[#1e3a8a] rounded-lg overflow-hidden bg-gradient-to-b from-blue-50/20 to-white shadow-2xs p-3 relative ${className}`}
     >
       {/* Top Header Bar with Gold Hairline */}
-      <div className="flex items-center justify-between border-b border-amber-400/60 pb-2 mb-2 select-none leading-none min-h-[26px]">
-        <div className="flex items-center gap-1.5 text-[#1e3a8a] leading-none">
-          <ShieldCheck className="w-4 h-4 text-amber-500 fill-amber-500/20 shrink-0 self-center -translate-y-[0.5px]" />
-          <span className="font-extrabold text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans leading-none self-center -translate-y-[1.5px]">
+      <div className="flex items-center justify-between border-b border-amber-400/60 pb-2 mb-2 select-none min-h-[26px]" style={{ alignItems: 'center' }}>
+        <div className="flex gap-1.5 text-[#1e3a8a]" style={{ alignItems: 'center' }}>
+          <ShieldCheck className="w-4 h-4 text-amber-500 fill-amber-500/20 shrink-0" />
+          <span className="font-extrabold text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans" style={{ lineHeight: 1 }}>
             PORTAL RESMI DIGITAL
           </span>
-          <span className="text-[7.5px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold border border-emerald-300 leading-none inline-flex items-center self-center -translate-y-[0.5px] ml-1">
+          <span className="text-[7.5px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold border border-emerald-300 inline-flex items-center ml-1" style={{ lineHeight: 1 }}>
             TERVERIFIKASI
           </span>
         </div>
 
-        <div className="text-[7.5px] text-slate-500 font-bold uppercase tracking-widest font-sans leading-none self-center -translate-y-[1.5px]">
+        <div className="text-[7.5px] text-slate-500 font-bold uppercase tracking-widest font-sans" style={{ lineHeight: 1 }}>
           DESA {formData.inputNamaDesa}
         </div>
       </div>
@@ -73,9 +73,9 @@ export default function QrCard({ className = '', style = {} }) {
 
         {/* Bottom Pill Button - Perfectly Centered */}
         <div className="mt-3 flex items-center justify-center">
-          <div className="bg-gradient-to-r from-[#1e3a8a] to-[#0f2744] text-white px-5 py-1.5 sm:py-2 rounded-full inline-flex items-center justify-center gap-2 shadow-sm text-[8.5px] sm:text-[9.5px] font-bold tracking-wide border border-amber-400/50 leading-none">
-            <Globe className="w-3.5 h-3.5 text-amber-300 shrink-0 self-center -translate-y-[0.5px]" />
-            <span className="leading-none self-center -translate-y-[1px]">Verifikasi Status DPT &amp; Berkas Online</span>
+          <div className="bg-gradient-to-r from-[#1e3a8a] to-[#0f2744] text-white px-5 py-1.5 sm:py-2 rounded-full inline-flex items-center justify-center gap-2 shadow-sm text-[8.5px] sm:text-[9.5px] font-bold tracking-wide border border-amber-400/50">
+            <Globe className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+            <span className="leading-tight">Verifikasi Status DPT &amp; Berkas Online</span>
           </div>
         </div>
       </div>

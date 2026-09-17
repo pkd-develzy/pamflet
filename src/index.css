@@ -142,16 +142,17 @@
 }
 
 .page-a4 .table-header-bar {
-  padding-top: 3.5px !important;
-  padding-bottom: 4.5px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
   padding-left: 8px !important;
   padding-right: 8px !important;
   min-height: 22px !important;
+  align-items: center !important;
+  display: flex !important;
 }
 
 .page-a4 .table-header-title {
   font-size: 8.5px !important;
-  transform: translateY(-1px) !important;
 }
 
 .page-a4 .panitia-header-badge {
@@ -159,7 +160,7 @@
 }
 
 .page-a4 .panitia-header-badge span {
-  transform: translateY(-1px) !important;
+  /* no transform offset needed */
 }
 
 .page-a4 .panitia-pill {
@@ -167,7 +168,7 @@
 }
 
 .page-a4 .panitia-pill span {
-  transform: translateY(-0.8px) !important;
+  /* no transform offset needed */
 }
 
 .page-a4 .table-sublist {
@@ -321,16 +322,17 @@
 }
 
 .page-a3plus .table-header-bar {
-  padding-top: 6px !important;
-  padding-bottom: 7px !important;
+  padding-top: 6.5px !important;
+  padding-bottom: 6.5px !important;
   padding-left: 12px !important;
   padding-right: 12px !important;
   min-height: 32px !important;
+  align-items: center !important;
+  display: flex !important;
 }
 
 .page-a3plus .table-header-title {
   font-size: 13px !important;
-  transform: translateY(-2px) !important;
 }
 
 .page-a3plus .panitia-header-badge {
@@ -338,7 +340,7 @@
 }
 
 .page-a3plus .panitia-header-badge span {
-  transform: translateY(-2px) !important;
+  /* no transform offset needed */
 }
 
 .page-a3plus .panitia-pill {
@@ -346,7 +348,7 @@
 }
 
 .page-a3plus .panitia-pill span {
-  transform: translateY(-1.2px) !important;
+  /* no transform offset needed */
 }
 
 .page-a3plus .table-sublist {
@@ -502,16 +504,17 @@
 }
 
 .page-a3 .table-header-bar {
-  padding-top: 4.5px !important;
-  padding-bottom: 5.5px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
   padding-left: 10px !important;
   padding-right: 10px !important;
   min-height: 26px !important;
+  align-items: center !important;
+  display: flex !important;
 }
 
 .page-a3 .table-header-title {
   font-size: 11.5px !important;
-  transform: translateY(-1.5px) !important;
 }
 
 .page-a3 .panitia-header-badge {
@@ -519,7 +522,7 @@
 }
 
 .page-a3 .panitia-header-badge span {
-  transform: translateY(-1.5px) !important;
+  /* no transform offset needed */
 }
 
 .page-a3 .panitia-pill {
@@ -527,7 +530,7 @@
 }
 
 .page-a3 .panitia-pill span {
-  transform: translateY(-1px) !important;
+  /* no transform offset needed */
 }
 
 .page-a3 .table-sublist {
@@ -643,4 +646,34 @@
   outline: 2px solid #d4af37;
   background-color: rgba(254, 240, 138, 0.25);
   border-radius: 2px;
+}
+
+/* =========================================================================
+   CANVAS / EXPORT SAFE: Pastikan tidak ada transform residual yang
+   menyebabkan teks offset saat di-render oleh html2canvas.
+   Semua centering dilakukan via flexbox items-center, bukan translateY.
+   ========================================================================= */
+.poster-sheet th,
+.poster-sheet td {
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.poster-sheet .table-header-bar {
+  align-items: center;
+}
+
+.poster-sheet .panitia-card-body {
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pastikan teks di dalam flex tidak punya offset transform */
+.poster-sheet .table-header-bar span,
+.poster-sheet .panitia-header-badge span,
+.poster-sheet .panitia-pill span,
+.poster-sheet .panitia-card-header span,
+.poster-sheet .panitia-card-body span {
+  transform: none;
+  -webkit-transform: none;
 }

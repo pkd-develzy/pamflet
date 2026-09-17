@@ -22,20 +22,22 @@ export default function PanitiaShowcase() {
       {/* Modern Executive Header */}
       <div className="flex flex-col items-center justify-center mb-1">
         {/* Navy & Gold Premium Badge - Perfectly Centered */}
-        <div className="panitia-header-badge inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#0f172a] via-[#1e3a8a] to-[#0f172a] text-white px-4 py-1.5 sm:py-2 rounded-full shadow-xs border border-amber-400/50 leading-none">
-          <Award className="w-3.5 h-3.5 text-amber-300 shrink-0 self-center -translate-y-[0.5px]" />
+      <div className="panitia-header-badge inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#0f172a] via-[#1e3a8a] to-[#0f172a] text-white px-4 py-1.5 sm:py-2 rounded-full shadow-xs border border-amber-400/50" style={{ alignItems: 'center' }}>
+          <Award className="w-3.5 h-3.5 text-amber-300 shrink-0" />
           <span
             contentEditable
             suppressContentEditableWarning
-            className="text-[9px] sm:text-[9.5px] font-black uppercase tracking-wider font-sans text-white leading-none self-center -translate-y-[1.5px]"
+            className="text-[9px] sm:text-[9.5px] font-black uppercase tracking-wider font-sans text-white"
+            style={{ lineHeight: 1 }}
           >
             SUSUNAN PANITIA PEMILIHAN KEPALA DESA
           </span>
-          <span className="text-amber-400 text-[8px] font-black leading-none self-center -translate-y-[1.5px]">&#9670;</span>
+          <span className="text-amber-400 text-[8px] font-black" style={{ lineHeight: 1 }}>&#9670;</span>
           <span
             contentEditable
             suppressContentEditableWarning
-            className="text-[8.5px] font-extrabold uppercase tracking-wide text-amber-300 font-sans leading-none self-center -translate-y-[1.5px]"
+            className="text-[8.5px] font-extrabold uppercase tracking-wide text-amber-300 font-sans"
+            style={{ lineHeight: 1 }}
           >
             DESA {formData.inputNamaDesa} {formData.inputTahun}
           </span>
@@ -43,15 +45,15 @@ export default function PanitiaShowcase() {
 
         {/* Pelindung & Penanggung Jawab Executive Pills - Perfectly Centered */}
         <div className="flex flex-wrap items-center justify-center gap-2 mt-1">
-          <div className="panitia-pill bg-white/95 text-slate-700 px-3.5 py-1 sm:py-1.5 rounded-full border border-slate-300 shadow-2xs inline-flex items-center justify-center gap-1.5 font-medium leading-none">
-            <Shield className="w-2.5 h-2.5 text-blue-800 shrink-0 self-center -translate-y-[0.5px]" />
-            <span className="leading-none text-[7.5px] sm:text-[8px] self-center -translate-y-[1px]">
+          <div className="panitia-pill bg-white/95 text-slate-700 px-3.5 py-1 sm:py-1.5 rounded-full border border-slate-300 shadow-2xs inline-flex items-center justify-center gap-1.5 font-medium" style={{ alignItems: 'center' }}>
+            <Shield className="w-2.5 h-2.5 text-blue-800 shrink-0" />
+            <span className="text-[7.5px] sm:text-[8px]" style={{ lineHeight: 1 }}>
               <strong>Pelindung:</strong> <span contentEditable suppressContentEditableWarning onBlur={e => updateFormField('inputPelindung', e.currentTarget.textContent.trim())}>{formData.inputPelindung}</span>
             </span>
           </div>
-          <div className="panitia-pill bg-white/95 text-slate-700 px-3.5 py-1 sm:py-1.5 rounded-full border border-slate-300 shadow-2xs inline-flex items-center justify-center gap-1.5 font-medium leading-none">
-            <Users className="w-2.5 h-2.5 text-emerald-800 shrink-0 self-center -translate-y-[0.5px]" />
-            <span className="leading-none text-[7.5px] sm:text-[8px] self-center -translate-y-[1px]">
+          <div className="panitia-pill bg-white/95 text-slate-700 px-3.5 py-1 sm:py-1.5 rounded-full border border-slate-300 shadow-2xs inline-flex items-center justify-center gap-1.5 font-medium" style={{ alignItems: 'center' }}>
+            <Users className="w-2.5 h-2.5 text-emerald-800 shrink-0" />
+            <span className="text-[7.5px] sm:text-[8px]" style={{ lineHeight: 1 }}>
               <strong>Penanggung Jawab:</strong> <span contentEditable suppressContentEditableWarning onBlur={e => updateFormField('inputPenanggungJawab', e.currentTarget.textContent.trim())}>{formData.inputPenanggungJawab}</span>
             </span>
           </div>
@@ -76,7 +78,7 @@ export default function PanitiaShowcase() {
               <span
                 contentEditable
                 suppressContentEditableWarning
-                className="w-full text-[6.8px] sm:text-[7.5px] font-black uppercase tracking-tight leading-[1.2] text-amber-200 px-0.5 whitespace-normal break-words text-center -translate-y-[1px]"
+                className="w-full text-[6.8px] sm:text-[7.5px] font-black uppercase tracking-tight leading-[1.2] text-amber-200 px-0.5 whitespace-normal break-words text-center"
                 title={c.title}
               >
                 {c.title}
@@ -89,7 +91,7 @@ export default function PanitiaShowcase() {
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={e => updateFormField(c.field, e.currentTarget.textContent.trim())}
-                className="w-full text-[7.5px] sm:text-[8px] leading-tight font-extrabold tracking-tight text-[#1e3a8a] -translate-y-[0.5px]"
+                className="w-full text-[7.5px] sm:text-[8px] leading-tight font-extrabold tracking-tight text-[#1e3a8a] text-center"
               >
                 {c.name}
               </span>

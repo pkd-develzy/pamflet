@@ -9,10 +9,11 @@ import {
   RotateCcw,
   Printer,
   Download,
-  FileText,
+  FileDown,
   Layers,
   Sparkles,
-  Image as ImageIcon
+  Image as ImageIcon,
+  ChevronDown
 } from 'lucide-react';
 
 export default function AppHeader() {
@@ -47,26 +48,27 @@ export default function AppHeader() {
     showToast('Zoom disesuaikan dengan layar');
   };
 
-  const handleZoom100 = () => {
-    setIsFitMode(false);
-    setZoomLevel(1.0);
-  };
-
   const handlePrint = () => {
     window.print();
   };
 
   const handleDownloadPdf = async () => {
-    const elementId = activeTemplate === 'pamflet' ? 'posterContent' : 'posterAlurContent';
-    setLoading({ active: true, message: 'Menyiapkan file PDF HD+ Super Tajam (300-450 DPI Cetak Stiker & Poster)...' });
+    const elementId = activeTemplate === 'pamflet' ? 'posterContent'
+      : activeTemplate === 'alur' ? 'posterAlurContent'
+      : 'storySlide1';
+    setLoading({ active: true, message: 'Menyiapkan file PDF HD Siap Cetak...' });
 
     await exportToPdf({
       elementId,
       paperSize,
-      fileName: `Poster_Pilkades_${activeTemplate === 'pamflet' ? 'Lengkap' : 'Alur'}_${paperSize.toUpperCase()}_HDPlus_Cetak_Stiker.pdf`,
+      fileName: `Poster_Pilkades_${
+        activeTemplate === 'pamflet' ? 'Lengkap'
+        : activeTemplate === 'story' ? 'Story_WA_Slide1'
+        : 'Alur'
+      }_${paperSize.toUpperCase()}.pdf`,
       onComplete: () => {
         setLoading({ active: false, message: '' });
-        showToast('PDF HD+ berhasil diunduh! Resolusi terbaik siap cetak stiker.', 'success');
+        showToast(activeTemplate === 'story' ? 'PDF Slide 1 berhasil diunduh!' : 'PDF siap cetak berhasil diunduh!', 'success');
       },
       onError: (err) => {
         setLoading({ active: false, message: '' });
@@ -76,16 +78,43 @@ export default function AppHeader() {
   };
 
   const handleDownloadImage = async () => {
+    if (activeTemplate === 'story') {
+      setLoading({ active: true, message: 'Mengunduh 5 Slide Story WA...' });
+      const slides = ['storySlide1', 'storySlide2', 'storySlide3', 'storySlide4', 'storySlide5'];
+      const labels = ['Cover', 'Panitia', 'Pencalonan', 'Pemilih_Kampanye', 'Ringkasan'];
+      let success = 0;
+      for (let i = 0; i < slides.length; i++) {
+        try {
+          await exportToImage({
+            elementId: slides[i],
+            paperSize: 'a4',
+            fileName: `Story_WA_Slide${i + 1}_${labels[i]}_Pilkades.png`,
+            onStart: () => {
+              setLoading({ active: true, message: `Mengunduh Slide ${i + 1}/5: ${labels[i]}...` });
+            },
+            onError: (err) => console.error('Slide export error:', err)
+          });
+          success++;
+          await new Promise(r => setTimeout(r, 500));
+        } catch (e) {
+          console.error('Slide export failed:', e);
+        }
+      }
+      setLoading({ active: false, message: '' });
+      showToast(`${success}/5 Slide Story WA berhasil diunduh!`, 'success');
+      return;
+    }
+
     const elementId = activeTemplate === 'pamflet' ? 'posterContent' : 'posterAlurContent';
-    setLoading({ active: true, message: 'Menyiapkan Gambar HD+ Lossless PNG (300+ DPI Cetak Stiker / Vinyl)...' });
+    setLoading({ active: true, message: 'Menyiapkan Gambar PNG HD...' });
 
     await exportToImage({
       elementId,
       paperSize,
-      fileName: `Poster_Pilkades_${activeTemplate === 'pamflet' ? 'Lengkap' : 'Alur'}_${paperSize.toUpperCase()}_HDPlus_Lossless.png`,
+      fileName: `Poster_Pilkades_${activeTemplate === 'pamflet' ? 'Lengkap' : 'Alur'}_${paperSize.toUpperCase()}.png`,
       onComplete: () => {
         setLoading({ active: false, message: '' });
-        showToast('Gambar HD+ PNG siap cetak stiker berhasil diunduh!', 'success');
+        showToast('Gambar PNG HD berhasil diunduh!', 'success');
       },
       onError: (err) => {
         setLoading({ active: false, message: '' });
@@ -95,150 +124,163 @@ export default function AppHeader() {
   };
 
   return (
-    <header className="no-print h-16 bg-slate-900/95 border-b border-slate-800 px-4 flex items-center justify-between shadow-lg sticky top-0 z-40 backdrop-blur select-none">
-      {/* Brand & Left Controls */}
+    <header className="no-print h-14 bg-slate-900 border-b border-slate-800 px-4 flex items-center justify-between shadow-sm sticky top-0 z-40 select-none">
+      {/* Left: Brand & View Selectors */}
       <div className="flex items-center gap-3">
+        {/* Toggle Sidebar Button */}
+        <button
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className={`p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition ${
+            isSidebarOpen ? 'bg-slate-800 text-amber-400' : ''
+          }`}
+          title={isSidebarOpen ? 'Sembunyikan Panel Edit' : 'Buka Panel Edit'}
+        >
+          <Menu className="w-4 h-4" />
+        </button>
+
+        {/* Logo & Clean Title */}
         <div className="flex items-center gap-2.5 mr-2">
           <img
             src="/images/logo_kabupaten_tegal.png"
-            alt="Logo Kabupaten Tegal"
-            className="w-9 h-9 object-contain filter drop-shadow"
+            alt="Logo"
+            className="w-7 h-7 object-contain"
           />
           <div className="hidden sm:flex flex-col">
-            <span className="font-extrabold text-sm tracking-wider text-amber-400 font-sans leading-tight">
-              PILKADES KALISALAK
+            <span className="font-bold text-xs tracking-wide text-white">
+              PILKADES STUDIO
             </span>
-            <span className="text-[10px] text-slate-400 font-semibold tracking-wider flex items-center gap-1">
-              <span>REACT + CLOUDFLARE</span>
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span className="text-[10px] text-slate-400">
+              Desa Kalisalak
             </span>
           </div>
         </div>
 
-        <div className="h-6 w-px bg-slate-700 mx-1 hidden sm:block"></div>
+        <div className="h-4 w-px bg-slate-800 hidden md:block"></div>
 
-        {/* Toggle Form Panel */}
-        <button
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
-            isSidebarOpen
-              ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-sm'
-              : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
-          }`}
-          title="Buka / Tutup Panel Form Edit"
-        >
-          <Menu className="w-4 h-4" />
-          <span className="hidden md:inline">Panel Form</span>
-        </button>
-
-        {/* Template Selector */}
-        <div className="flex items-center gap-1.5 bg-slate-800/80 px-2 py-1 rounded-lg border border-slate-700">
-          <Layers className="w-3.5 h-3.5 text-amber-400" />
-          <select
-            value={activeTemplate}
-            onChange={e => setActiveTemplate(e.target.value)}
-            className="bg-transparent text-xs font-medium text-slate-200 focus:outline-none cursor-pointer pr-1"
+        {/* Segmented Template Selector */}
+        <div className="flex items-center bg-slate-950/80 p-0.5 rounded-lg border border-slate-800 text-xs">
+          <button
+            onClick={() => setActiveTemplate('pamflet')}
+            className={`px-3 py-1 rounded-md font-medium transition ${
+              activeTemplate === 'pamflet'
+                ? 'bg-slate-800 text-white shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
           >
-            <option value="pamflet" className="bg-slate-900 text-white">Pamflet Lengkap (Jadwal & Panitia)</option>
-            <option value="alur" className="bg-slate-900 text-white">Poster Alur 13 Langkah Pemilih</option>
-          </select>
+            Poster Utama
+          </button>
+          <button
+            onClick={() => setActiveTemplate('alur')}
+            className={`px-3 py-1 rounded-md font-medium transition ${
+              activeTemplate === 'alur'
+                ? 'bg-slate-800 text-white shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            Alur Pemilih
+          </button>
+          <button
+            onClick={() => setActiveTemplate('story')}
+            className={`px-3 py-1 rounded-md font-medium transition ${
+              activeTemplate === 'story'
+                ? 'bg-amber-500/20 text-amber-300 font-semibold shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            Story WA (5 Slide)
+          </button>
         </div>
 
-        {/* Paper Size Selector */}
-        <div className="flex items-center gap-1.5 bg-slate-800/80 px-2 py-1 rounded-lg border border-slate-700">
-          <FileText className="w-3.5 h-3.5 text-amber-400" />
-          <select
-            value={paperSize}
-            onChange={e => {
-              const newSize = e.target.value;
-              setPaperSize(newSize);
-              setIsFitMode(true);
-              const labelMap = {
-                a3plus: 'A3+ (Acuan Utama - 32.9 × 48.3 cm)',
-                a3: 'A3 (Standar - 29.7 × 42 cm)',
-                a4: 'A4 (Ringkas - 21 × 29.7 cm)'
-              };
-              showToast(`Format aktif: ${labelMap[newSize] || newSize.toUpperCase()}`, 'info');
-            }}
-            className="bg-transparent text-xs font-semibold text-slate-200 focus:outline-none cursor-pointer pr-1 uppercase"
-          >
-            <option value="a3plus" className="bg-slate-900 text-amber-300 font-bold">A3+ (32.9 &times; 48.3 cm - Acuan Utama)</option>
-            <option value="a3" className="bg-slate-900 text-white">A3 (29.7 &times; 42 cm - Standar)</option>
-            <option value="a4" className="bg-slate-900 text-white">A4 (21 &times; 29.7 cm - Ringkas)</option>
-          </select>
-        </div>
+        {/* Paper Size Selector (Only for print posters) */}
+        {activeTemplate !== 'story' && (
+          <div className="hidden lg:flex items-center bg-slate-950/80 p-0.5 rounded-lg border border-slate-800 text-xs">
+            {['a3plus', 'a3', 'a4'].map(size => (
+              <button
+                key={size}
+                onClick={() => {
+                  setPaperSize(size);
+                  setIsFitMode(true);
+                }}
+                className={`px-2.5 py-1 rounded-md font-semibold transition uppercase text-[11px] ${
+                  paperSize === size
+                    ? 'bg-slate-800 text-amber-400 shadow-sm'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                {size === 'a3plus' ? 'A3+' : size.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Center: Zoom Controls */}
-      <div className="hidden lg:flex items-center gap-1 bg-slate-800/90 px-2 py-1 rounded-lg border border-slate-700/80 text-xs">
+      {/* Center: Minimalist Zoom Pill */}
+      <div className="hidden md:flex items-center gap-1 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-xs">
         <button
           onClick={handleZoomOut}
-          className="p-1 rounded text-slate-300 hover:text-white hover:bg-slate-700 transition"
+          className="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition"
           title="Perkecil (-)"
         >
           <ZoomOut className="w-3.5 h-3.5" />
         </button>
-        <span className="px-2 font-mono text-amber-400 font-bold min-w-[48px] text-center">
+
+        <button
+          onClick={handleZoomFit}
+          className="px-2 py-0.5 rounded font-mono text-[11px] text-slate-300 hover:text-white transition"
+          title="Klik untuk Fit Layar"
+        >
           {isFitMode ? 'Fit' : `${Math.round(zoomLevel * 100)}%`}
-        </span>
+        </button>
+
         <button
           onClick={handleZoomIn}
-          className="p-1 rounded text-slate-300 hover:text-white hover:bg-slate-700 transition"
+          className="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition"
           title="Perbesar (+)"
         >
           <ZoomIn className="w-3.5 h-3.5" />
         </button>
-        <div className="h-4 w-px bg-slate-700 mx-1"></div>
-        <button
-          onClick={handleZoomFit}
-          className="px-2 py-0.5 rounded text-[11px] font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition"
-        >
-          Fit Layar
-        </button>
-        <button
-          onClick={handleZoom100}
-          className="px-2 py-0.5 rounded text-[11px] font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition"
-        >
-          100%
-        </button>
       </div>
 
-      {/* Right Action Buttons */}
+      {/* Right: Clean Action Controls */}
       <div className="flex items-center gap-2">
+        {/* Reset Button */}
         <button
           onClick={resetAllToDefault}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition shadow-sm"
-          title="Kembalikan semua ke data bawaan resmi"
+          className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+          title="Reset ke data awal"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
-          <span className="hidden md:inline">Reset</span>
+          <RotateCcw className="w-4 h-4" />
         </button>
 
+        {/* Print Button */}
         <button
           onClick={handlePrint}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-600 transition shadow-sm"
-          title="Cetak langsung ke printer (Ctrl+P)"
+          className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+          title="Cetak langsung (Ctrl+P)"
         >
-          <Printer className="w-3.5 h-3.5 text-sky-400" />
-          <span>Cetak</span>
+          <Printer className="w-4 h-4" />
         </button>
 
+        <div className="h-4 w-px bg-slate-800 mx-1"></div>
+
+        {/* Download PNG Button */}
         <button
           onClick={handleDownloadImage}
-          className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-amber-300 bg-slate-800 hover:bg-slate-700 border border-amber-500/40 transition shadow-sm"
-          title="Download Gambar HD+ Lossless PNG (300+ DPI Cetak Stiker / Vinyl)"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition"
+          title={activeTemplate === 'story' ? 'Unduh 5 slide Story WA sebagai PNG HD' : 'Unduh Gambar PNG HD'}
         >
-          <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
-          <span>Gambar HD+ (PNG)</span>
+          <ImageIcon className="w-3.5 h-3.5 text-slate-300" />
+          <span>{activeTemplate === 'story' ? 'Unduh 5 PNG' : 'PNG'}</span>
         </button>
 
+        {/* Download PDF Button */}
         <button
           onClick={handleDownloadPdf}
-          className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500 hover:brightness-110 active:scale-95 transition shadow-lg shadow-amber-500/20"
-          title="Download PDF HD+ Resolusi Terbaik Siap Cetak Stiker & Poster (300-450 DPI)"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-950 bg-amber-400 hover:bg-amber-300 transition shadow-sm"
+          title="Unduh Dokumen PDF Siap Cetak"
         >
-          <Download className="w-4 h-4" />
-          <span>Download PDF HD+ (Stiker)</span>
+          <Download className="w-3.5 h-3.5" />
+          <span>Unduh PDF</span>
         </button>
       </div>
     </header>

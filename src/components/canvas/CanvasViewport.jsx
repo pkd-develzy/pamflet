@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { usePoster } from '../../context/PosterContext';
 import PosterSheet from './PosterSheet';
 import AlurSheet from './AlurSheet';
+import StoryWASheet from './StoryWASheet';
 
 export default function CanvasViewport() {
   const {
@@ -36,6 +37,11 @@ export default function CanvasViewport() {
         targetW = 1122;
         targetH = 1587;
       }
+      // Story WA: 1080px wide, single slide fit (1920px tall — show one slide at a time)
+      if (activeTemplate === 'story') {
+        targetW = 1080;
+        targetH = 1920;
+      }
 
       const scaleW = vw / targetW;
       const scaleH = vh / targetH;
@@ -60,7 +66,7 @@ export default function CanvasViewport() {
       window.removeEventListener('resize', calculateFit);
       if (resizeObserver) resizeObserver.disconnect();
     };
-  }, [paperSize]);
+  }, [paperSize, activeTemplate]);
 
   const effectiveScale = isFitMode ? autoScale : zoomLevel;
 
@@ -79,7 +85,7 @@ export default function CanvasViewport() {
         }}
         className="shrink-0 mb-12"
       >
-        {activeTemplate === 'pamflet' ? <PosterSheet /> : <AlurSheet />}
+        {activeTemplate === 'pamflet' ? <PosterSheet /> : activeTemplate === 'story' ? <StoryWASheet /> : <AlurSheet />}
       </div>
     </main>
   );

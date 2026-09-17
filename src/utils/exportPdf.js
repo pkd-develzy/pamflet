@@ -1,13 +1,25 @@
-import html2pdf from 'html2pdf.js';
-import html2canvas from 'html2canvas';
+import * as htmlToImage from 'html-to-image';
+import { jsPDF } from 'jspdf';
 
 /**
- * Export poster element to true HD+ Ultra Resolution PDF for Sticker / Vinyl / Large Format printing
+ * Wait for all document fonts and images to be fully rendered
  */
-export async function exportToPdf({ elementId, paperSize, fileName, onStart, onComplete, onError }) {
+async function prepareExportEnvironment() {
+  if (document.fonts && document.fonts.ready) {
+    await document.fonts.ready;
+  }
+  // Brief pause for browser rendering tick & reflow
+  await new Promise(resolve => setTimeout(resolve, 100));
+}
+
+/**
+ * Export element to ultra-sharp, pixel-perfect PDF using native browser engine
+ */
+export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, onStart, onComplete, onError }) {
   const element = document.getElementById(elementId);
   if (!element) {
-    if (onError) onError(new Error(`Element #${elementId} tidak ditemukan`));
+    const err = new Error(`Elemen #${elementId} tidak ditemukan.`);
+    if (onError) onError(err);
     return;
   }
 
@@ -18,94 +30,66 @@ export async function exportToPdf({ elementId, paperSize, fileName, onStart, onC
   try {
     if (onStart) onStart();
 
-    // Temporarily reset CSS scale transform to 'none' so html2canvas captures at full 1:1 physical unscaled dimensions
+    // Temporarily disable preview scale so the element is measured at full 1:1 physical size
     if (scaleBox) {
       scaleBox.style.transition = 'none';
       scaleBox.style.transform = 'none';
     }
 
-    // Small delay to allow layout recalculation at 1:1 scale
-    await new Promise(resolve => setTimeout(resolve, 80));
+    await prepareExportEnvironment();
 
     const isA4 = paperSize.toLowerCase() === 'a4';
     const isA3 = paperSize.toLowerCase() === 'a3';
-    const pdfFormat = isA4 ? 'a4' : (isA3 ? 'a3' : [329, 483]);
     const formatName = isA4 ? 'A4' : (isA3 ? 'A3' : 'A3Plus_Master');
+    const pdfFormat = isA4 ? 'a4' : (isA3 ? 'a3' : [329, 483]);
 
-    // Scale 4 on 1:1 physical size yields approx 4972 x 7304 pixels (over 36 MegaPixels),
-    // delivering true 300-450 DPI print-ready density with zero blur or pixelation on sticker vinyl.
-    const opt = {
-      margin: 0,
-      filename: fileName || `Pamflet_Pilkades_Kalisalak_2026_${formatName}_HDPlus_Cetak_Stiker.pdf`,
-      image: { type: 'png', quality: 1.0 },
-      html2canvas: {
-        scale: 4,
-        useCORS: true,
-        allowTaint: true,
-        letterRendering: false,
-        backgroundColor: '#ffffff',
-        imageTimeout: 20000,
-        scrollX: 0,
-        scrollY: 0,
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight,
-        onclone: (clonedDoc) => {
-          // Stabilize font metrics and vertical centering in cloned DOM
-          const style = clonedDoc.createElement('style');
-          style.textContent = `
-            * {
-              -webkit-font-smoothing: antialiased !important;
-              -moz-osx-font-smoothing: grayscale !important;
-              text-rendering: optimizeLegibility !important;
-            }
-            th, td {
-              vertical-align: middle !important;
-            }
-          `;
-          clonedDoc.head.appendChild(style);
-
-          const imgs = clonedDoc.getElementsByTagName('img');
-          for (let i = 0; i < imgs.length; i++) {
-            imgs[i].style.imageRendering = '-webkit-optimize-contrast';
-          }
-        },
-        ignoreElements: (el) => {
-          if (!el) return false;
-          if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;
-          if (el.getAttribute && (el.getAttribute('data-html2canvas-ignore') === 'true' || el.getAttribute('data-no-print') === 'true')) return true;
-          return false;
-        }
-      },
-      jsPDF: {
-        unit: 'mm',
-        format: pdfFormat,
-        orientation: 'portrait',
-        compress: true
+    // pixelRatio 3 provides crystal-clear 300+ DPI resolution without memory crashes
+    const dataUrl = await htmlToImage.toPng(element, {
+      pixelRatio: 3,
+      cacheBust: true,
+      skipAutoScale: true,
+      backgroundColor: '#ffffff',
+      style: {
+        transform: 'none',
+        margin: '0',
       }
-    };
+    });
 
-    await html2pdf().set(opt).from(element).save();
+    // Create jsPDF document with exact paper size
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: pdfFormat,
+      compress: true
+    });
+
+    const pdfWidth = doc.internal.pageSize.getWidth();
+    const pdfHeight = doc.internal.pageSize.getHeight();
+
+    doc.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+    doc.save(fileName || `Pamflet_Pilkades_${formatName}_HDPlus_Siap_Cetak.pdf`);
 
     if (onComplete) onComplete();
   } catch (err) {
-    console.error('Error generating HD+ PDF:', err);
+    console.error('Export to PDF error:', err);
     if (onError) onError(err);
   } finally {
-    // Restore original viewport scale transform
+    // Restore preview transform
     if (scaleBox) {
-      scaleBox.style.transform = originalTransform;
       scaleBox.style.transition = originalTransition;
+      scaleBox.style.transform = originalTransform;
     }
   }
 }
 
 /**
- * Export poster directly as Lossless HD+ Ultra PNG image file (preferred by many print shops / CorelDRAW)
+ * Export element to ultra-sharp, lossless PNG image using native browser engine
  */
-export async function exportToImage({ elementId, paperSize, fileName, onStart, onComplete, onError }) {
+export async function exportToImage({ elementId, paperSize = 'a3plus', fileName, onStart, onComplete, onError }) {
   const element = document.getElementById(elementId);
   if (!element) {
-    if (onError) onError(new Error(`Element #${elementId} tidak ditemukan`));
+    const err = new Error(`Elemen #${elementId} tidak ditemukan.`);
+    if (onError) onError(err);
     return;
   }
 
@@ -116,84 +100,46 @@ export async function exportToImage({ elementId, paperSize, fileName, onStart, o
   try {
     if (onStart) onStart();
 
+    // Temporarily reset preview scaling for unscaled rasterization
     if (scaleBox) {
       scaleBox.style.transition = 'none';
       scaleBox.style.transform = 'none';
     }
 
-    await new Promise(resolve => setTimeout(resolve, 80));
+    await prepareExportEnvironment();
 
     const isA4 = paperSize.toLowerCase() === 'a4';
     const isA3 = paperSize.toLowerCase() === 'a3';
     const formatName = isA4 ? 'A4' : (isA3 ? 'A3' : 'A3Plus_Master');
 
-    // Directly invoke html2canvas for 100% reliable canvas generation without worker dependency
-    const canvas = await html2canvas(element, {
-      scale: 4,
-      useCORS: true,
-      allowTaint: true,
-      letterRendering: false,
+    // Use pixelRatio: 3 for high-density 300+ DPI output
+    const dataUrl = await htmlToImage.toPng(element, {
+      pixelRatio: 3,
+      cacheBust: true,
+      skipAutoScale: true,
       backgroundColor: '#ffffff',
-      imageTimeout: 20000,
-      scrollX: 0,
-      scrollY: 0,
-      windowWidth: element.scrollWidth,
-      windowHeight: element.scrollHeight,
-      onclone: (clonedDoc) => {
-        // Stabilize font metrics and vertical centering in cloned DOM
-        const style = clonedDoc.createElement('style');
-        style.textContent = `
-          * {
-            -webkit-font-smoothing: antialiased !important;
-            -moz-osx-font-smoothing: grayscale !important;
-            text-rendering: optimizeLegibility !important;
-          }
-          th, td {
-            vertical-align: middle !important;
-          }
-        `;
-        clonedDoc.head.appendChild(style);
-
-        const imgs = clonedDoc.getElementsByTagName('img');
-        for (let i = 0; i < imgs.length; i++) {
-          imgs[i].style.imageRendering = '-webkit-optimize-contrast';
-        }
-      },
-      ignoreElements: (el) => {
-        if (!el) return false;
-        if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;
-        if (el.getAttribute && (el.getAttribute('data-html2canvas-ignore') === 'true' || el.getAttribute('data-no-print') === 'true')) return true;
-        return false;
+      style: {
+        transform: 'none',
+        margin: '0',
       }
     });
 
-    // Stream download via Blob URL for high memory efficiency on 36MP image
-    await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (!blob) {
-          reject(new Error('Gagal mengonversi canvas ke Blob PNG'));
-          return;
-        }
-        const url = URL.createObjectURL(blob);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = url;
-        downloadLink.download = fileName || `Pamflet_Pilkades_Kalisalak_2026_${formatName}_HDPlus_Lossless.png`;
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-        setTimeout(() => URL.revokeObjectURL(url), 2000);
-        resolve();
-      }, 'image/png', 1.0);
-    });
+    // Trigger direct lossless download
+    const link = document.createElement('a');
+    link.download = fileName || `Pamflet_Pilkades_${formatName}_HDPlus_Lossless.png`;
+    link.href = dataUrl;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
     if (onComplete) onComplete();
   } catch (err) {
-    console.error('Error generating HD+ Image:', err);
+    console.error('Export to Image error:', err);
     if (onError) onError(err);
   } finally {
     if (scaleBox) {
-      scaleBox.style.transform = originalTransform;
       scaleBox.style.transition = originalTransition;
+      scaleBox.style.transform = originalTransform;
     }
   }
 }

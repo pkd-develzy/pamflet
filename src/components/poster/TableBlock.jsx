@@ -116,20 +116,22 @@ export default function TableBlock({
       className={`table-block-wrapper flex flex-col border border-slate-300 rounded overflow-hidden bg-white shadow-2xs ${className}`}
     >
       {/* Header Bar: Sovereign Executive Style with Gold Hairline */}
-      <div className={`table-header-bar px-3 py-1.5 sm:py-2 flex items-center justify-between ${themeConfig.bar} select-none shrink-0 leading-none min-h-[26px] sm:min-h-[30px]`}>
-        <div className="flex items-center gap-2 flex-1 min-w-0 leading-none">
-          <span className="inline-flex items-center justify-center shrink-0 self-center -translate-y-[0.5px]">
+      <div className={`table-header-bar px-3 flex items-center justify-between ${themeConfig.bar} select-none shrink-0 min-h-[26px] sm:min-h-[30px]`} style={{ alignItems: 'center' }}>
+        <div className="flex gap-2 flex-1 min-w-0" style={{ alignItems: 'center' }}>
+          <span className="inline-flex shrink-0" style={{ alignItems: 'center', lineHeight: 1 }}>
             {themeConfig.icon}
           </span>
           <span
             contentEditable
             suppressContentEditableWarning
-            className="table-header-title font-black text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans text-white drop-shadow-2xs leading-none self-center -translate-y-[1.5px]"
+            className="table-header-title font-black text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans text-white drop-shadow-2xs"
+            style={{ lineHeight: 1, display: 'block' }}
           >
             {title}
           </span>
         </div>
       </div>
+
 
       {/* Table Content Container: expands flexibly to eliminate empty space */}
       <div
@@ -139,14 +141,14 @@ export default function TableBlock({
         <table className="w-full h-full border-collapse text-left border border-slate-300">
           <thead>
             <tr className={`border-b border-slate-300 font-extrabold text-[8px] sm:text-[8.5px] uppercase tracking-wider ${themeConfig.th} shrink-0`}>
-              <th className="w-7 text-center py-2 px-1 border-r border-slate-300 align-middle leading-none font-extrabold">
-                <span className="inline-block -translate-y-[0.5px]">{headers[0]}</span>
+              <th className="w-7 text-center py-2 px-1 border-r border-slate-300 align-middle font-extrabold">
+                {headers[0]}
               </th>
-              <th className="py-2 px-2.5 border-r border-slate-300 align-middle leading-none font-extrabold">
-                <span className="inline-block -translate-y-[0.5px]">{headers[1]}</span>
+              <th className="py-2 px-2.5 border-r border-slate-300 align-middle font-extrabold">
+                {headers[1]}
               </th>
-              <th className="w-32 text-center py-2 px-1.5 align-middle leading-none font-extrabold">
-                <span className="inline-block -translate-y-[0.5px]">{headers[2]}</span>
+              <th className="w-32 text-center py-2 px-1.5 align-middle font-extrabold">
+                {headers[2]}
               </th>
             </tr>
           </thead>

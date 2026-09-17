@@ -24,7 +24,7 @@ export default function PosterHeader() {
           <h3
             contentEditable
             suppressContentEditableWarning
-            className="poster-header-sub text-[9.5px] sm:text-[10.5px] font-bold tracking-widest text-amber-300 uppercase font-sans leading-none -translate-y-[0.5px]"
+            className="poster-header-sub text-[9.5px] sm:text-[10.5px] font-bold tracking-widest text-amber-300 uppercase font-sans leading-tight"
           >
             PEMERINTAH KABUPATEN {formData.inputKabupaten} &bull; KECAMATAN {formData.inputKecamatan} &bull; PANITIA PILKADES DESA {formData.inputNamaDesa}
           </h3>
@@ -32,7 +32,7 @@ export default function PosterHeader() {
           <h1
             contentEditable
             suppressContentEditableWarning
-            className="poster-header-title text-base sm:text-xl md:text-2xl font-black text-white tracking-wider uppercase font-sans my-1 leading-none drop-shadow-sm -translate-y-[1px]"
+            className="poster-header-title text-base sm:text-xl md:text-2xl font-black text-white tracking-wider uppercase font-sans my-1 leading-tight drop-shadow-sm"
           >
             PENGUMUMAN TAHAPAN &amp; JADWAL PILKADES
           </h1>
@@ -40,7 +40,7 @@ export default function PosterHeader() {
           <p
             contentEditable
             suppressContentEditableWarning
-            className="poster-header-desc text-[8px] sm:text-[9px] text-sky-300 font-medium italic mx-auto leading-none mt-1 whitespace-nowrap overflow-hidden text-ellipsis max-w-none -translate-y-[0.5px]"
+            className="poster-header-desc text-[8px] sm:text-[9px] text-sky-300 font-medium italic mx-auto leading-tight mt-1 whitespace-nowrap overflow-hidden text-ellipsis max-w-none"
           >
             Mewujudkan Pemilihan Kepala Desa yang Demokratis, Transparan, Netral, dan Berintegritas Menuju Desa {formData.inputNamaDesa} Maju dan Modern
           </p>
