@@ -61,18 +61,18 @@ export default function PanitiaShowcase() {
             key={c.no}
             className="flex flex-col rounded-md overflow-hidden text-center transition-all border border-blue-900/60 bg-gradient-to-b from-blue-50/30 to-white shadow-2xs ring-1 ring-amber-400/30"
           >
-            {/* Card Header: Royal Navy with Amber Gold Hairline */}
-            <div className="panitia-card-header relative flex items-center justify-center min-h-[24px] px-1 py-1 bg-gradient-to-r from-[#172554] via-[#1e3a8a] to-[#172554] text-white border-b-2 border-amber-400">
+            {/* Card Header: Royal Navy with Amber Gold Hairline (Comfortable height without truncation) */}
+            <div className="panitia-card-header relative flex items-center justify-center min-h-[36px] px-1 py-1.5 bg-gradient-to-r from-[#172554] via-[#1e3a8a] to-[#172554] text-white border-b-2 border-amber-400">
               {/* Gold Metallic Badge */}
-              <span className="panitia-badge absolute -top-1 -left-1 w-4 h-4 rounded-full flex items-center justify-center font-black shadow-xs bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 text-slate-950 text-[7.5px] border border-amber-500">
+              <span className="panitia-badge absolute -top-1 -left-1 w-4 h-4 rounded-full flex items-center justify-center font-black shadow-xs bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 text-slate-950 text-[7.5px] border border-amber-500 z-10">
                 {c.no}
               </span>
 
-              {/* Role Title in Golden Amber */}
+              {/* Role Title in Golden Amber: full multi-line wrapping, never cut off */}
               <span
                 contentEditable
                 suppressContentEditableWarning
-                className="text-[6.5px] sm:text-[7px] font-black uppercase tracking-tight leading-tight line-clamp-2 pl-2.5 pr-0.5 text-amber-200"
+                className="text-[6.8px] sm:text-[7.5px] font-black uppercase tracking-tight leading-[1.15] text-amber-200 px-0.5 whitespace-normal break-words text-center"
                 title={c.title}
               >
                 {c.title}

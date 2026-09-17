@@ -104,9 +104,10 @@
 }
 
 .page-a4 .panitia-card-header {
-  min-height: 18px !important;
+  min-height: 26px !important;
   font-size: 6px !important;
-  padding: 1px 2px !important;
+  line-height: 1.15 !important;
+  padding: 1.5px 2px !important;
 }
 
 .page-a4 .panitia-card-body {
@@ -255,8 +256,9 @@
 }
 
 .page-a3plus .panitia-card-header {
-  min-height: 30px !important;
+  min-height: 42px !important;
   font-size: 8.5px !important;
+  line-height: 1.2 !important;
   padding: 3px 4px !important;
 }
 
@@ -408,8 +410,9 @@
 }
 
 .page-a3 .panitia-card-header {
-  min-height: 26px !important;
+  min-height: 36px !important;
   font-size: 7.5px !important;
+  line-height: 1.18 !important;
   padding: 2px 3px !important;
 }
 
