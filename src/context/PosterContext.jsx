@@ -100,10 +100,10 @@ export function PosterProvider({ children }) {
       const saved = localStorage.getItem(STORAGE_KEYS.STAMP);
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Sanitize corrupted or negative-Y coordinates that covered the header
-        const posX = (parsed.position && typeof parsed.position.x === 'number' && parsed.position.x <= 15) ? parsed.position.x : -25;
-        const posY = (parsed.position && typeof parsed.position.y === 'number' && parsed.position.y >= -5) ? parsed.position.y : 4;
-        const stampScale = (parsed.scale && parsed.scale <= 1.1) ? parsed.scale : 0.80;
+        // Sanitize corrupted coordinates
+        const posX = (parsed.position && typeof parsed.position.x === 'number' && parsed.position.x <= 15) ? parsed.position.x : -28;
+        const posY = (parsed.position && typeof parsed.position.y === 'number' && parsed.position.y >= -10) ? parsed.position.y : 0;
+        const stampScale = (parsed.scale && parsed.scale >= 0.5 && parsed.scale <= 2.0) ? parsed.scale : 1.05;
 
         return {
           visible: true,
@@ -117,9 +117,9 @@ export function PosterProvider({ children }) {
     } catch {}
     return {
       visible: true,
-      scale: 0.80,
+      scale: 1.05,
       rotation: -8,
-      position: { x: -25, y: 4 },
+      position: { x: -28, y: 0 },
       imageUrl: DEFAULT_POSTER_DATA.stempelPanitiaUrl
     };
   });
@@ -243,8 +243,8 @@ export function PosterProvider({ children }) {
   const resetStampPosition = () => {
     setStampState(prev => ({
       ...prev,
-      position: { x: -25, y: 4 },
-      scale: 0.80,
+      position: { x: -28, y: 0 },
+      scale: 1.05,
       rotation: -8
     }));
   };
@@ -258,9 +258,9 @@ export function PosterProvider({ children }) {
       setTableHeightWeights(INITIAL_HEIGHT_WEIGHTS);
       setStampState({
         visible: true,
-        scale: 0.80,
+        scale: 1.05,
         rotation: -8,
-        position: { x: -25, y: 4 },
+        position: { x: -28, y: 0 },
         imageUrl: DEFAULT_POSTER_DATA.stempelPanitiaUrl
       });
       localStorage.clear();

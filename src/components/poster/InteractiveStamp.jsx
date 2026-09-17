@@ -152,7 +152,7 @@ export default function InteractiveStamp() {
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            updateStamp({ scale: Math.min(stampState.scale + 0.05, 1.4) });
+            updateStamp({ scale: Math.min(stampState.scale + 0.05, 2.0) });
           }}
           className="hover:text-amber-400 px-0.5 font-bold text-xs"
           title="Perbesar Stempel"
@@ -192,7 +192,7 @@ export default function InteractiveStamp() {
       <img
         src={stampState.imageUrl || '/images/stempel_panitia_kalisalak_transparan.png'}
         alt="Cap Stempel Asli Panitia"
-        className="w-20 h-20 sm:w-22 sm:h-22 object-contain pointer-events-none drop-shadow-sm mix-blend-multiply"
+        className="w-26 h-26 sm:w-28 sm:h-28 object-contain pointer-events-none drop-shadow-sm mix-blend-multiply"
         draggable={false}
       />
     </div>

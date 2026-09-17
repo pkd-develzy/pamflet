@@ -122,7 +122,7 @@ export default function PosterFooter() {
         </div>
 
         {/* Space for Signature & Stamp */}
-        <div className="h-16 w-full relative flex items-center justify-center my-0.5">
+        <div className="h-16 sm:h-18 w-full relative flex items-center justify-center my-0.5">
           <InteractiveStamp />
         </div>
 
