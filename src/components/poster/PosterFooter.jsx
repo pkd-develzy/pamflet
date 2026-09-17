@@ -22,27 +22,8 @@ export default function PosterFooter() {
               POSKO SEKRETARIAT &amp; PENGADUAN PILKADES
             </span>
           </div>
-
-          {/* Quick Spacing Controls */}
-          <div className="no-print flex items-center gap-1 text-[8px] bg-white/10 px-1.5 py-0.5 rounded-full border border-white/20">
-            <span className="text-slate-300">Jarak:</span>
-            <button
-              type="button"
-              onClick={() => updateFormField('poskoSpacing', Math.max((formData.poskoSpacing ?? 8) - 2, 2))}
-              className="w-4 h-4 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center justify-center leading-none"
-              title="Persempit Jarak Baris"
-            >
-              &minus;
-            </button>
-            <span className="font-mono text-amber-200 min-w-[20px] text-center">{formData.poskoSpacing ?? 8}px</span>
-            <button
-              type="button"
-              onClick={() => updateFormField('poskoSpacing', Math.min((formData.poskoSpacing ?? 8) + 2, 28))}
-              className="w-4 h-4 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center justify-center leading-none"
-              title="Perlebar Jarak Baris"
-            >
-              +
-            </button>
+          <div className="text-[7.5px] text-amber-300/80 font-bold uppercase tracking-wider font-sans">
+            RESMI
           </div>
         </div>
 

@@ -49,7 +49,13 @@ export async function exportToPdf({ elementId, paperSize, fileName, onStart, onC
         scrollX: 0,
         scrollY: 0,
         windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight
+        windowHeight: element.scrollHeight,
+        ignoreElements: (el) => {
+          if (!el) return false;
+          if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;
+          if (el.getAttribute && (el.getAttribute('data-html2canvas-ignore') === 'true' || el.getAttribute('data-no-print') === 'true')) return true;
+          return false;
+        }
       },
       jsPDF: {
         unit: 'mm',
@@ -114,7 +120,13 @@ export async function exportToImage({ elementId, paperSize, fileName, onStart, o
       scrollX: 0,
       scrollY: 0,
       windowWidth: element.scrollWidth,
-      windowHeight: element.scrollHeight
+      windowHeight: element.scrollHeight,
+      ignoreElements: (el) => {
+        if (!el) return false;
+        if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;
+        if (el.getAttribute && (el.getAttribute('data-html2canvas-ignore') === 'true' || el.getAttribute('data-no-print') === 'true')) return true;
+        return false;
+      }
     });
 
     // Stream download via Blob URL for high memory efficiency on 36MP image

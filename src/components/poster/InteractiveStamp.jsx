@@ -93,7 +93,7 @@ export default function InteractiveStamp() {
       title="Klik dan seret (drag) untuk mengatur posisi cap stempel"
     >
       {/* Quick controls on hover (Scale & Rotate & Degree indicator) */}
-      <div className="no-print opacity-0 group-hover:opacity-100 transition-opacity absolute -top-8 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-slate-900/95 text-white rounded-full px-2.5 py-1 shadow-lg border border-amber-500/50 text-[9px] font-bold whitespace-nowrap z-30">
+      <div data-html2canvas-ignore="true" className="no-print opacity-0 group-hover:opacity-100 transition-opacity absolute -top-8 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-slate-900/95 text-white rounded-full px-2.5 py-1 shadow-lg border border-amber-500/50 text-[9px] font-bold whitespace-nowrap z-30">
         {/* Rotate Left button */}
         <button
           type="button"
@@ -163,6 +163,7 @@ export default function InteractiveStamp() {
 
       {/* Rotation Handle Pin on Top (Drag to rotate freely like Figma/Canva) */}
       <div
+        data-html2canvas-ignore="true"
         className="no-print opacity-0 group-hover:opacity-100 transition-opacity absolute -top-4 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-grab active:cursor-grabbing z-30"
         onMouseDown={handleRotateMouseDown}
         title="Seret bulatan ini untuk memutar / memiringkan stempel secara bebas"

@@ -30,61 +30,8 @@ export default function QrCard({ className = '', style = {} }) {
           </span>
         </div>
 
-        {/* Small subtle action pill */}
-        <div className="no-print flex items-center gap-1 text-[8.5px]">
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setShowMoveMenu(!showMoveMenu)}
-              className="px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-[#1e3a8a] rounded border border-blue-200 flex items-center gap-1 font-semibold"
-            >
-              <span>Kolom</span>
-              <ChevronDown className="w-2.5 h-2.5" />
-            </button>
-            {showMoveMenu && (
-              <div className="absolute right-0 top-full mt-1 bg-slate-900 text-slate-100 border border-slate-700 rounded shadow-xl z-50 py-1 w-28 text-left">
-                <button
-                  type="button"
-                  onClick={() => {
-                    moveTableBlock(blockId, 'leftColumn');
-                    setShowMoveMenu(false);
-                  }}
-                  className="w-full px-2 py-1 text-left hover:bg-slate-800 text-[9.5px]"
-                >
-                  ⬅ Kolom Kiri
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    moveTableBlock(blockId, 'rightColumn');
-                    setShowMoveMenu(false);
-                  }}
-                  className="w-full px-2 py-1 text-left hover:bg-slate-800 text-[9.5px]"
-                >
-                  ➡ Kolom Kanan
-                </button>
-              </div>
-            )}
-          </div>
-
-          <div className="flex items-center bg-blue-50 border border-blue-200 rounded overflow-hidden">
-            <button
-              type="button"
-              onClick={() => moveBlockOrder(blockId, 'up')}
-              className="p-1 hover:bg-blue-100 text-[#1e3a8a]"
-              title="Geser ke Atas"
-            >
-              <ArrowUp className="w-2.5 h-2.5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => moveBlockOrder(blockId, 'down')}
-              className="p-1 hover:bg-blue-100 text-[#1e3a8a]"
-              title="Geser ke Bawah"
-            >
-              <ArrowDown className="w-2.5 h-2.5" />
-            </button>
-          </div>
+        <div className="text-[7.5px] text-slate-500 font-bold uppercase tracking-widest font-sans">
+          DESA {formData.inputNamaDesa}
         </div>
       </div>
 
