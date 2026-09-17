@@ -37,7 +37,7 @@ export async function exportToPdf({ elementId, paperSize, fileName, onStart, onC
     const opt = {
       margin: 0,
       filename: fileName || `Pamflet_Pilkades_Kalisalak_2026_${formatName}_HDPlus_Cetak_Stiker.pdf`,
-      image: { type: 'jpeg', quality: 1.0 },
+      image: { type: 'png', quality: 1.0 },
       html2canvas: {
         scale: 4,
         useCORS: true,
@@ -45,11 +45,17 @@ export async function exportToPdf({ elementId, paperSize, fileName, onStart, onC
         logging: false,
         letterRendering: true,
         backgroundColor: '#ffffff',
-        imageTimeout: 15000,
+        imageTimeout: 20000,
         scrollX: 0,
         scrollY: 0,
         windowWidth: element.scrollWidth,
         windowHeight: element.scrollHeight,
+        onclone: (clonedDoc) => {
+          const imgs = clonedDoc.getElementsByTagName('img');
+          for (let i = 0; i < imgs.length; i++) {
+            imgs[i].style.imageRendering = '-webkit-optimize-contrast';
+          }
+        },
         ignoreElements: (el) => {
           if (!el) return false;
           if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;
@@ -116,11 +122,17 @@ export async function exportToImage({ elementId, paperSize, fileName, onStart, o
       logging: false,
       letterRendering: true,
       backgroundColor: '#ffffff',
-      imageTimeout: 15000,
+      imageTimeout: 20000,
       scrollX: 0,
       scrollY: 0,
       windowWidth: element.scrollWidth,
       windowHeight: element.scrollHeight,
+      onclone: (clonedDoc) => {
+        const imgs = clonedDoc.getElementsByTagName('img');
+        for (let i = 0; i < imgs.length; i++) {
+          imgs[i].style.imageRendering = '-webkit-optimize-contrast';
+        }
+      },
       ignoreElements: (el) => {
         if (!el) return false;
         if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;

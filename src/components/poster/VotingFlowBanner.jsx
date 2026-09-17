@@ -7,6 +7,7 @@ export default function VotingFlowBanner() {
         src="/images/Tahapan.png"
         alt="Panduan Pemilih - Alur Lengkap Penduduk Menggunakan Hak Pilih pada Pilkades Serentak Desa Kalisalak 2026"
         className="w-full h-auto block object-contain select-none"
+        style={{ imageRendering: '-webkit-optimize-contrast' }}
         loading="eager"
         decoding="sync"
       />
