@@ -11,7 +11,7 @@ export default function InteractiveStamp() {
 
   if (!stampState.visible) return null;
 
-  const currentRotation = typeof stampState.rotation === 'number' ? stampState.rotation : -8;
+  const currentRotation = typeof stampState.rotation === 'number' ? stampState.rotation : 0;
 
   // Handle Drag Position
   const handleMouseDown = (e) => {
@@ -99,23 +99,23 @@ export default function InteractiveStamp() {
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            updateStamp({ rotation: currentRotation - 5 });
+            updateStamp({ rotation: currentRotation - 1 });
           }}
           className="hover:text-amber-400 p-0.5"
-          title="Miringkan ke Kiri (-5°)"
+          title="Putar ke Kiri (-1°)"
         >
           <RotateCcw className="w-2.5 h-2.5" />
         </button>
 
-        {/* Degree display & click to toggle straight/tilted */}
+        {/* Degree display & click to toggle straight/subtle */}
         <button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            updateStamp({ rotation: currentRotation === 0 ? -8 : 0 });
+            updateStamp({ rotation: currentRotation === 0 ? -2 : 0 });
           }}
           className="hover:text-amber-300 font-mono text-[8px] bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 mx-0.5"
-          title="Klik untuk ubah Tegak (0°) / Miring (-8°)"
+          title="Klik untuk ubah Tegak Lurus (0°) / Alami (-2°)"
         >
           {currentRotation > 0 ? `+${currentRotation}` : currentRotation}&deg;
         </button>
@@ -125,10 +125,10 @@ export default function InteractiveStamp() {
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            updateStamp({ rotation: currentRotation + 5 });
+            updateStamp({ rotation: currentRotation + 1 });
           }}
           className="hover:text-amber-400 p-0.5"
-          title="Miringkan ke Kanan (+5°)"
+          title="Putar ke Kanan (+1°)"
         >
           <RotateCw className="w-2.5 h-2.5" />
         </button>
@@ -170,7 +170,7 @@ export default function InteractiveStamp() {
             resetStampPosition();
           }}
           className="hover:text-amber-300 text-[8px] bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 px-1.5 py-0.5 rounded font-bold"
-          title="Kembalikan ke posisi & ukuran standar resmi"
+          title="Kembalikan ke posisi & ukuran standar resmi lurus"
         >
           Reset
         </button>
@@ -192,7 +192,7 @@ export default function InteractiveStamp() {
       <img
         src={stampState.imageUrl || '/images/stempel_panitia_kalisalak_transparan.png'}
         alt="Cap Stempel Asli Panitia"
-        className="w-26 h-26 sm:w-28 sm:h-28 object-contain pointer-events-none drop-shadow-sm mix-blend-multiply"
+        className="w-36 sm:w-40 h-auto object-contain pointer-events-none drop-shadow-xs mix-blend-multiply"
         draggable={false}
       />
     </div>

@@ -94,16 +94,17 @@ export function PosterProvider({ children }) {
     }
   });
 
-  // 5. Stamp State - Authentic official Indonesian decree placement (left of signature, no overlap with title)
+  // 5. Stamp State - Authentic official Indonesian decree placement (neat, rectangular, 0° straight default)
   const [stampState, setStampState] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.STAMP);
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Sanitize corrupted coordinates
-        const posX = (parsed.position && typeof parsed.position.x === 'number' && parsed.position.x <= 15) ? parsed.position.x : -28;
-        const posY = (parsed.position && typeof parsed.position.y === 'number' && parsed.position.y >= -10) ? parsed.position.y : 0;
-        const stampScale = (parsed.scale && parsed.scale >= 0.5 && parsed.scale <= 2.0) ? parsed.scale : 1.05;
+        // Normalize rotation: if it was skewed at -8 or tilted, reset to 0 (clean straight)
+        const rot = (typeof parsed.rotation === 'number' && parsed.rotation !== -8) ? parsed.rotation : 0;
+        const posX = (parsed.position && typeof parsed.position.x === 'number' && parsed.position.x <= 15) ? parsed.position.x : -16;
+        const posY = (parsed.position && typeof parsed.position.y === 'number' && parsed.position.y >= -15) ? parsed.position.y : -2;
+        const stampScale = (parsed.scale && parsed.scale >= 0.5 && parsed.scale <= 2.0) ? parsed.scale : 0.95;
 
         return {
           visible: true,
@@ -111,15 +112,15 @@ export function PosterProvider({ children }) {
           ...parsed,
           scale: stampScale,
           position: { x: posX, y: posY },
-          rotation: typeof parsed.rotation === 'number' ? parsed.rotation : -8
+          rotation: rot
         };
       }
     } catch {}
     return {
       visible: true,
-      scale: 1.05,
-      rotation: -8,
-      position: { x: -28, y: 0 },
+      scale: 0.95,
+      rotation: 0,
+      position: { x: -16, y: -2 },
       imageUrl: DEFAULT_POSTER_DATA.stempelPanitiaUrl
     };
   });
@@ -243,9 +244,9 @@ export function PosterProvider({ children }) {
   const resetStampPosition = () => {
     setStampState(prev => ({
       ...prev,
-      position: { x: -28, y: 0 },
-      scale: 1.05,
-      rotation: -8
+      position: { x: -16, y: -2 },
+      scale: 0.95,
+      rotation: 0
     }));
   };
 
@@ -258,9 +259,9 @@ export function PosterProvider({ children }) {
       setTableHeightWeights(INITIAL_HEIGHT_WEIGHTS);
       setStampState({
         visible: true,
-        scale: 1.05,
-        rotation: -8,
-        position: { x: -28, y: 0 },
+        scale: 0.95,
+        rotation: 0,
+        position: { x: -16, y: -2 },
         imageUrl: DEFAULT_POSTER_DATA.stempelPanitiaUrl
       });
       localStorage.clear();
