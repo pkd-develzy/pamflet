@@ -1,4 +1,5 @@
 import html2pdf from 'html2pdf.js';
+import html2canvas from 'html2canvas';
 
 /**
  * Export poster element to true HD+ Ultra Resolution PDF for Sticker / Vinyl / Large Format printing
@@ -36,7 +37,7 @@ export async function exportToPdf({ elementId, paperSize, fileName, onStart, onC
     const opt = {
       margin: 0,
       filename: fileName || `Pamflet_Pilkades_Kalisalak_2026_${formatName}_HDPlus_Cetak_Stiker.pdf`,
-      image: { type: 'png', quality: 1.0 }, // PNG lossless avoids JPEG mosquito noise around text & QR code
+      image: { type: 'jpeg', quality: 1.0 },
       html2canvas: {
         scale: 4,
         useCORS: true,
@@ -101,36 +102,39 @@ export async function exportToImage({ elementId, paperSize, fileName, onStart, o
     const isA3 = paperSize.toLowerCase() === 'a3';
     const formatName = isA4 ? 'A4' : (isA3 ? 'A3' : 'A3Plus_Master');
 
-    const opt = {
-      margin: 0,
-      image: { type: 'png', quality: 1.0 },
-      html2canvas: {
-        scale: 4,
-        useCORS: true,
-        allowTaint: true,
-        logging: false,
-        letterRendering: true,
-        backgroundColor: '#ffffff',
-        imageTimeout: 15000,
-        scrollX: 0,
-        scrollY: 0,
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight
-      }
-    };
+    // Directly invoke html2canvas for 100% reliable canvas generation without worker dependency
+    const canvas = await html2canvas(element, {
+      scale: 4,
+      useCORS: true,
+      allowTaint: true,
+      logging: false,
+      letterRendering: true,
+      backgroundColor: '#ffffff',
+      imageTimeout: 15000,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight
+    });
 
-    // Use html2pdf's bundled worker to obtain the canvas
-    const worker = html2pdf().set(opt).from(element).toCanvas();
-    const canvas = await worker.outputCanvas();
-
-    // Trigger download of lossless high-res PNG
-    const imageUri = canvas.toDataURL('image/png', 1.0);
-    const downloadLink = document.createElement('a');
-    downloadLink.href = imageUri;
-    downloadLink.download = fileName || `Pamflet_Pilkades_Kalisalak_2026_${formatName}_HDPlus_Lossless.png`;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+    // Stream download via Blob URL for high memory efficiency on 36MP image
+    await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) {
+          reject(new Error('Gagal mengonversi canvas ke Blob PNG'));
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = url;
+        downloadLink.download = fileName || `Pamflet_Pilkades_Kalisalak_2026_${formatName}_HDPlus_Lossless.png`;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+        resolve();
+      }, 'image/png', 1.0);
+    });
 
     if (onComplete) onComplete();
   } catch (err) {
