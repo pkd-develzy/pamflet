@@ -59,14 +59,14 @@ export default function PanitiaShowcase() {
       </div>
 
       {/* 9 Modern Executive Cards (All Unified to Ketua's Prestigious Design) */}
-      <div className="grid grid-cols-9 gap-1 sm:gap-1.5">
+      <div className="grid grid-cols-9 gap-1 sm:gap-1.5 w-full">
         {cards.map(c => (
           <div
             key={c.no}
-            className="flex flex-col rounded-md overflow-hidden text-center transition-all border border-blue-900/60 bg-gradient-to-b from-blue-50/30 to-white shadow-2xs ring-1 ring-amber-400/30"
+            className="w-full flex flex-col rounded-md overflow-hidden text-center transition-all border border-blue-900/60 bg-gradient-to-b from-blue-50/30 to-white shadow-2xs ring-1 ring-amber-400/30"
           >
-            {/* Card Header: Royal Navy with Amber Gold Hairline (Comfortable height without truncation) */}
-            <div className="panitia-card-header relative flex items-center justify-center min-h-[36px] px-1 py-1.5 bg-gradient-to-r from-[#172554] via-[#1e3a8a] to-[#172554] text-white border-b-2 border-amber-400">
+            {/* Card Header: Royal Navy with Amber Gold Hairline (Always 100% Width) */}
+            <div className="panitia-card-header w-full relative flex items-center justify-center min-h-[36px] px-1 py-1.5 bg-gradient-to-r from-[#172554] via-[#1e3a8a] to-[#172554] text-white border-b-2 border-amber-400 shrink-0">
               {/* Gold Metallic Badge */}
               <span className="panitia-badge absolute -top-1 -left-1 w-4 h-4 rounded-full flex items-center justify-center font-black shadow-xs bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 text-slate-950 text-[7.5px] border border-amber-500 z-10">
                 {c.no}
@@ -76,20 +76,20 @@ export default function PanitiaShowcase() {
               <span
                 contentEditable
                 suppressContentEditableWarning
-                className="text-[6.8px] sm:text-[7.5px] font-black uppercase tracking-tight leading-[1.15] text-amber-200 px-0.5 whitespace-normal break-words text-center"
+                className="w-full text-[6.8px] sm:text-[7.5px] font-black uppercase tracking-tight leading-[1.15] text-amber-200 px-0.5 whitespace-normal break-words text-center"
                 title={c.title}
               >
                 {c.title}
               </span>
             </div>
 
-            {/* Card Body with Official's Name in Navy */}
-            <div className="panitia-card-body p-1 flex-1 flex items-center justify-center min-h-[22px] bg-amber-50/20">
+            {/* Card Body with Official's Name in Navy (Always 100% Width) */}
+            <div className="panitia-card-body w-full p-1 flex-1 flex items-center justify-center min-h-[22px] bg-amber-50/20">
               <span
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={e => updateFormField(c.field, e.currentTarget.textContent.trim())}
-                className="text-[7.5px] sm:text-[8px] leading-tight font-extrabold tracking-tight text-[#1e3a8a]"
+                className="w-full text-[7.5px] sm:text-[8px] leading-tight font-extrabold tracking-tight text-[#1e3a8a]"
               >
                 {c.name}
               </span>

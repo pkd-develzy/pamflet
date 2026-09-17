@@ -58,9 +58,6 @@ export async function exportToPdf({ elementId, paperSize, fileName, onStart, onC
               -moz-osx-font-smoothing: grayscale !important;
               text-rendering: optimizeLegibility !important;
             }
-            .inline-flex, .flex {
-              align-items: center !important;
-            }
             th, td {
               vertical-align: middle !important;
             }
@@ -150,9 +147,6 @@ export async function exportToImage({ elementId, paperSize, fileName, onStart, o
             -webkit-font-smoothing: antialiased !important;
             -moz-osx-font-smoothing: grayscale !important;
             text-rendering: optimizeLegibility !important;
-          }
-          .inline-flex, .flex {
-            align-items: center !important;
           }
           th, td {
             vertical-align: middle !important;

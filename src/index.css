@@ -564,11 +564,6 @@
   text-overflow: ellipsis !important;
   display: block !important;
 }
-
-/* Precise vertical centering for pills, badges, and headers across PDF and Canvas */
-.inline-flex, .flex {
-  align-items: center;
-}
 [contenteditable="true"]:focus {
   outline: 2px solid #d4af37;
   background-color: rgba(254, 240, 138, 0.25);
