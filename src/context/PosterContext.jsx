@@ -32,6 +32,12 @@ export function PosterProvider({ children }) {
           if (!parsed.inputHotline || parsed.inputHotline === '0812-3456-7890') {
             parsed.inputHotline = DEFAULT_POSTER_DATA.inputHotline;
           }
+          if (!parsed.inputWaktuTPS || parsed.inputWaktuTPS.includes('13.00')) {
+            parsed.inputWaktuTPS = DEFAULT_POSTER_DATA.inputWaktuTPS;
+          }
+          if (!parsed.inputTempatTPS || parsed.inputTempatTPS.includes('TPS Masing-Masing')) {
+            parsed.inputTempatTPS = DEFAULT_POSTER_DATA.inputTempatTPS;
+          }
           if (parsed.tahapanPencalonan?.[0]?.kegiatan?.sublist) {
             parsed.tahapanPencalonan[0].kegiatan.sublist = parsed.tahapanPencalonan[0].kegiatan.sublist
               .filter(item => !item.includes('TANPA PUNGUTAN BIAYA'))

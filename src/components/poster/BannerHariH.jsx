@@ -40,13 +40,14 @@ export default function BannerHariH() {
               className="font-bold text-slate-950"
             >
               {formData.inputWaktuTPS}
-            </strong> | Tempat: <span
+            </strong> | Tempat: <strong
               contentEditable
               suppressContentEditableWarning
               onBlur={e => updateFormField('inputTempatTPS', e.currentTarget.textContent.trim())}
+              className="font-bold text-slate-950"
             >
               {formData.inputTempatTPS}
-            </span>
+            </strong>
           </div>
         </div>
       </div>
