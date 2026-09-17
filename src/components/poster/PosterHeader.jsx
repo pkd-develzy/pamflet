@@ -40,9 +40,9 @@ export default function PosterHeader() {
           <p
             contentEditable
             suppressContentEditableWarning
-            className="poster-header-desc text-[8px] sm:text-[9px] text-sky-300 font-medium italic max-w-2xl mx-auto leading-tight mt-0.5"
+            className="poster-header-desc text-[8px] sm:text-[9px] text-sky-300 font-medium italic mx-auto leading-none mt-1 whitespace-nowrap overflow-hidden text-ellipsis max-w-none"
           >
-            Mewujudkan Pemilihan Kepala Desa yang Demokratis, Transparan, Netral, dan Berintegritas Menuju Desa {formData.inputNamaDesa} Maju Berbasis Digital
+            Mewujudkan Pemilihan Kepala Desa yang Demokratis, Transparan, Netral, dan Berintegritas Menuju Desa {formData.inputNamaDesa} Maju dan Modern
           </p>
         </div>
 

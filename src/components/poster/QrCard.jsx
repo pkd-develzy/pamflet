@@ -21,16 +21,18 @@ export default function QrCard({ className = '', style = {} }) {
       className={`qr-card-container table-block-wrapper flex-1 flex flex-col justify-between border-2 border-[#1e3a8a] rounded-lg overflow-hidden bg-gradient-to-b from-blue-50/20 to-white shadow-2xs p-3 relative ${className}`}
     >
       {/* Top Header Bar with Gold Hairline */}
-      <div className="flex items-center justify-between border-b border-amber-400/60 pb-1.5 mb-2 select-none">
-        <div className="flex items-center gap-1.5 text-[#1e3a8a]">
-          <ShieldCheck className="w-4 h-4 text-amber-500 fill-amber-500/20" />
-          <span className="font-extrabold text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans flex items-center gap-1">
-            <span>PORTAL RESMI DIGITAL</span>
-            <span className="text-[7.5px] bg-emerald-100 text-emerald-800 px-1 py-0.2 rounded font-bold border border-emerald-300">TERVERIFIKASI</span>
+      <div className="flex items-center justify-between border-b border-amber-400/60 pb-1.5 mb-2 select-none leading-none">
+        <div className="flex items-center gap-1.5 text-[#1e3a8a] leading-none">
+          <ShieldCheck className="w-4 h-4 text-amber-500 fill-amber-500/20 shrink-0 self-center" />
+          <span className="font-extrabold text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans leading-none inline-block align-middle">
+            PORTAL RESMI DIGITAL
+          </span>
+          <span className="text-[7.5px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold border border-emerald-300 leading-none inline-flex items-center self-center ml-1">
+            TERVERIFIKASI
           </span>
         </div>
 
-        <div className="text-[7.5px] text-slate-500 font-bold uppercase tracking-widest font-sans">
+        <div className="text-[7.5px] text-slate-500 font-bold uppercase tracking-widest font-sans leading-none self-center">
           DESA {formData.inputNamaDesa}
         </div>
       </div>
@@ -69,11 +71,11 @@ export default function QrCard({ className = '', style = {} }) {
           Pindai QR Code untuk cek Pengumuman DPT Online, Berkas Persyaratan Balon Kades, Jadwal Tahapan, dan Layanan Informasi secara transparan &amp; akuntabel.
         </p>
 
-        {/* Bottom Pill Button */}
+        {/* Bottom Pill Button - Perfectly Centered */}
         <div className="mt-3 flex items-center justify-center">
-          <div className="bg-gradient-to-r from-[#1e3a8a] to-[#0f2744] text-white px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm text-[8.5px] sm:text-[9.5px] font-bold tracking-wide border border-amber-400/50">
-            <Globe className="w-3.5 h-3.5 text-amber-300" />
-            <span>Verifikasi Status DPT &amp; Berkas Online</span>
+          <div className="h-6 sm:h-7 bg-gradient-to-r from-[#1e3a8a] to-[#0f2744] text-white px-4 py-0 rounded-full inline-flex items-center justify-center gap-1.5 shadow-sm text-[8.5px] sm:text-[9.5px] font-bold tracking-wide border border-amber-400/50 leading-none">
+            <Globe className="w-3.5 h-3.5 text-amber-300 shrink-0 inline-block align-middle" />
+            <span className="leading-none inline-block align-middle">Verifikasi Status DPT &amp; Berkas Online</span>
           </div>
         </div>
       </div>

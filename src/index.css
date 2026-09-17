@@ -75,7 +75,9 @@
 }
 
 .page-a4 .poster-header-desc {
-  font-size: 7px !important;
+  font-size: 6.8px !important;
+  white-space: nowrap !important;
+  max-width: 100% !important;
 }
 
 .page-a4 .poster-header-logo {
@@ -224,8 +226,10 @@
 }
 
 .page-a3plus .poster-header-desc {
-  font-size: 11px !important;
+  font-size: 10px !important;
   margin-top: 4px !important;
+  white-space: nowrap !important;
+  max-width: 100% !important;
 }
 
 .page-a3plus .poster-header-logo {
@@ -378,8 +382,10 @@
 }
 
 .page-a3 .poster-header-desc {
-  font-size: 9px !important;
+  font-size: 8.5px !important;
   margin-top: 3px !important;
+  white-space: nowrap !important;
+  max-width: 100% !important;
 }
 
 .page-a3 .poster-header-logo {
@@ -548,6 +554,20 @@
   outline: 1px dashed rgba(212, 175, 55, 0.6);
   background-color: rgba(254, 240, 138, 0.15);
   border-radius: 2px;
+}
+
+/* Slogan must strictly remain on a single line */
+.poster-header-desc {
+  white-space: nowrap !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: block !important;
+}
+
+/* Precise vertical centering for pills, badges, and headers across PDF and Canvas */
+.inline-flex, .flex {
+  align-items: center;
 }
 [contenteditable="true"]:focus {
   outline: 2px solid #d4af37;

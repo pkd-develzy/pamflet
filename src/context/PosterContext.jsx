@@ -94,27 +94,32 @@ export function PosterProvider({ children }) {
     }
   });
 
-  // 5. Stamp State
+  // 5. Stamp State - Authentic official Indonesian decree placement (left of signature, no overlap with title)
   const [stampState, setStampState] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.STAMP);
       if (saved) {
         const parsed = JSON.parse(saved);
+        // Sanitize corrupted or negative-Y coordinates that covered the header
+        const posX = (parsed.position && typeof parsed.position.x === 'number' && parsed.position.x <= 15) ? parsed.position.x : -25;
+        const posY = (parsed.position && typeof parsed.position.y === 'number' && parsed.position.y >= -5) ? parsed.position.y : 4;
+        const stampScale = (parsed.scale && parsed.scale <= 1.1) ? parsed.scale : 0.80;
+
         return {
           visible: true,
-          scale: 0.95,
-          position: { x: 35, y: -20 },
           imageUrl: DEFAULT_POSTER_DATA.stempelPanitiaUrl,
           ...parsed,
+          scale: stampScale,
+          position: { x: posX, y: posY },
           rotation: typeof parsed.rotation === 'number' ? parsed.rotation : -8
         };
       }
     } catch {}
     return {
       visible: true,
-      scale: 0.95,
+      scale: 0.80,
       rotation: -8,
-      position: { x: 35, y: -20 },
+      position: { x: -25, y: 4 },
       imageUrl: DEFAULT_POSTER_DATA.stempelPanitiaUrl
     };
   });
@@ -235,6 +240,15 @@ export function PosterProvider({ children }) {
     setStampState(prev => ({ ...prev, ...updates }));
   };
 
+  const resetStampPosition = () => {
+    setStampState(prev => ({
+      ...prev,
+      position: { x: -25, y: 4 },
+      scale: 0.80,
+      rotation: -8
+    }));
+  };
+
   const resetAllToDefault = () => {
     if (window.confirm('Kembalikan semua data, layout, dan ukuran ke preset standar resmi Kalisalak 2026?')) {
       setPaperSize('a3plus');
@@ -244,9 +258,9 @@ export function PosterProvider({ children }) {
       setTableHeightWeights(INITIAL_HEIGHT_WEIGHTS);
       setStampState({
         visible: true,
-        scale: 0.95,
+        scale: 0.80,
         rotation: -8,
-        position: { x: 35, y: -20 },
+        position: { x: -25, y: 4 },
         imageUrl: DEFAULT_POSTER_DATA.stempelPanitiaUrl
       });
       localStorage.clear();
@@ -270,6 +284,7 @@ export function PosterProvider({ children }) {
         changeTableHeightWeight,
         stampState,
         updateStamp,
+        resetStampPosition,
         paperSize,
         setPaperSize,
         activeTemplate,

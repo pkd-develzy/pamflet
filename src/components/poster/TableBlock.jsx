@@ -116,14 +116,15 @@ export default function TableBlock({
       className={`table-block-wrapper flex flex-col border border-slate-300 rounded overflow-hidden bg-white shadow-2xs ${className}`}
     >
       {/* Header Bar: Sovereign Executive Style with Gold Hairline */}
-      <div className={`px-2.5 py-1.5 flex items-center justify-between ${themeConfig.bar} select-none shrink-0`}>
-        <div className="flex items-center gap-1.5 flex-1 min-w-0">
-          <LayoutGrid className="w-3 h-3 text-amber-300/80 shrink-0" />
-          {themeConfig.icon}
+      <div className={`px-2.5 py-1.5 flex items-center justify-between ${themeConfig.bar} select-none shrink-0 leading-none`}>
+        <div className="flex items-center gap-2 flex-1 min-w-0 leading-none">
+          <span className="inline-flex items-center justify-center shrink-0 self-center">
+            {themeConfig.icon}
+          </span>
           <span
             contentEditable
             suppressContentEditableWarning
-            className="table-header-title font-black text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans text-white drop-shadow-2xs"
+            className="table-header-title font-black text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans text-white drop-shadow-2xs leading-none inline-block align-middle"
           >
             {title}
           </span>
@@ -138,9 +139,9 @@ export default function TableBlock({
         <table className="w-full h-full border-collapse text-left border border-slate-300">
           <thead>
             <tr className={`border-b border-slate-300 font-extrabold text-[8px] sm:text-[8.5px] uppercase tracking-wider ${themeConfig.th} shrink-0`}>
-              <th className="w-7 text-center py-1 border-r border-slate-300">{headers[0]}</th>
-              <th className="py-1 px-2 border-r border-slate-300">{headers[1]}</th>
-              <th className="w-32 text-center py-1 px-1.5">{headers[2]}</th>
+              <th className="w-7 text-center py-1.5 px-1 border-r border-slate-300 align-middle leading-tight font-extrabold">{headers[0]}</th>
+              <th className="py-1.5 px-2 border-r border-slate-300 align-middle leading-tight font-extrabold">{headers[1]}</th>
+              <th className="w-32 text-center py-1.5 px-1.5 align-middle leading-tight font-extrabold">{headers[2]}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-200 text-[8px] sm:text-[8.5px] leading-snug text-slate-900 font-sans">

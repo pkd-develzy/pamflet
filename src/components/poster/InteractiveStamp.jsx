@@ -3,7 +3,7 @@ import { usePoster } from '../../context/PosterContext';
 import { RotateCw, RotateCcw, RefreshCw } from 'lucide-react';
 
 export default function InteractiveStamp() {
-  const { stampState, updateStamp } = usePoster();
+  const { stampState, updateStamp, resetStampPosition } = usePoster();
   const [isDragging, setIsDragging] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
   const stampRef = useRef(null);
@@ -92,7 +92,7 @@ export default function InteractiveStamp() {
       onMouseDown={handleMouseDown}
       title="Klik dan seret (drag) untuk mengatur posisi cap stempel"
     >
-      {/* Quick controls on hover (Scale & Rotate & Degree indicator) */}
+      {/* Quick controls on hover (Scale & Rotate & Degree indicator & Reset) */}
       <div data-html2canvas-ignore="true" className="no-print opacity-0 group-hover:opacity-100 transition-opacity absolute -top-8 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-slate-900/95 text-white rounded-full px-2.5 py-1 shadow-lg border border-amber-500/50 text-[9px] font-bold whitespace-nowrap z-30">
         {/* Rotate Left button */}
         <button
@@ -140,7 +140,7 @@ export default function InteractiveStamp() {
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            updateStamp({ scale: Math.max(stampState.scale - 0.1, 0.5) });
+            updateStamp({ scale: Math.max(stampState.scale - 0.05, 0.4) });
           }}
           className="hover:text-amber-400 px-0.5 font-bold text-xs"
           title="Perkecil Stempel"
@@ -152,12 +152,27 @@ export default function InteractiveStamp() {
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            updateStamp({ scale: Math.min(stampState.scale + 0.1, 1.6) });
+            updateStamp({ scale: Math.min(stampState.scale + 0.05, 1.4) });
           }}
           className="hover:text-amber-400 px-0.5 font-bold text-xs"
           title="Perbesar Stempel"
         >
           +
+        </button>
+
+        <span className="text-slate-600">|</span>
+
+        {/* Reset to Authentic Placement Button */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            resetStampPosition();
+          }}
+          className="hover:text-amber-300 text-[8px] bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 px-1.5 py-0.5 rounded font-bold"
+          title="Kembalikan ke posisi & ukuran standar resmi"
+        >
+          Reset
         </button>
       </div>
 
@@ -177,7 +192,7 @@ export default function InteractiveStamp() {
       <img
         src={stampState.imageUrl || '/images/stempel_panitia_kalisalak_transparan.png'}
         alt="Cap Stempel Asli Panitia"
-        className="w-24 h-24 sm:w-28 sm:h-28 object-contain pointer-events-none drop-shadow-md mix-blend-multiply"
+        className="w-20 h-20 sm:w-22 sm:h-22 object-contain pointer-events-none drop-shadow-sm mix-blend-multiply"
         draggable={false}
       />
     </div>

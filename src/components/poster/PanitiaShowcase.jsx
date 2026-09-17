@@ -21,36 +21,40 @@ export default function PanitiaShowcase() {
     <section className="panitia-box bg-gradient-to-b from-slate-50/80 via-white to-slate-50/80 border border-slate-300 rounded-lg p-1.5 shadow-2xs select-none">
       {/* Modern Executive Header */}
       <div className="flex flex-col items-center justify-center mb-1">
-        {/* Navy & Gold Premium Badge */}
-        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#0f172a] via-[#1e3a8a] to-[#0f172a] text-white px-4 py-0.5 rounded-full shadow-xs border border-amber-400/50">
-          <Award className="w-3 h-3 text-amber-300 shrink-0" />
+        {/* Navy & Gold Premium Badge - Perfectly Centered */}
+        <div className="h-6 sm:h-6.5 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#0f172a] via-[#1e3a8a] to-[#0f172a] text-white px-4 py-0 rounded-full shadow-xs border border-amber-400/50 leading-none">
+          <Award className="w-3 h-3 text-amber-300 shrink-0 inline-block align-middle" />
           <span
             contentEditable
             suppressContentEditableWarning
-            className="text-[9px] sm:text-[9.5px] font-black uppercase tracking-wider font-sans text-white"
+            className="text-[9px] sm:text-[9.5px] font-black uppercase tracking-wider font-sans text-white leading-none inline-block align-middle"
           >
             SUSUNAN PANITIA PEMILIHAN KEPALA DESA
           </span>
-          <span className="text-amber-400 text-[8px] font-black">&#9670;</span>
+          <span className="text-amber-400 text-[8px] font-black leading-none inline-block align-middle">&#9670;</span>
           <span
             contentEditable
             suppressContentEditableWarning
-            className="text-[8.5px] font-extrabold uppercase tracking-wide text-amber-300 font-sans"
+            className="text-[8.5px] font-extrabold uppercase tracking-wide text-amber-300 font-sans leading-none inline-block align-middle"
           >
             DESA {formData.inputNamaDesa} {formData.inputTahun}
           </span>
         </div>
 
-        {/* Pelindung & Penanggung Jawab Executive Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-1.5 mt-1 text-[7.5px] sm:text-[8px]">
-          <span className="bg-white/90 text-slate-700 px-2 py-0.5 rounded-md border border-slate-300 shadow-2xs flex items-center gap-1 font-medium">
-            <Shield className="w-2.5 h-2.5 text-blue-800" />
-            <span><strong>Pelindung:</strong> <span contentEditable suppressContentEditableWarning onBlur={e => updateFormField('inputPelindung', e.currentTarget.textContent.trim())}>{formData.inputPelindung}</span></span>
-          </span>
-          <span className="bg-white/90 text-slate-700 px-2 py-0.5 rounded-md border border-slate-300 shadow-2xs flex items-center gap-1 font-medium">
-            <Users className="w-2.5 h-2.5 text-emerald-800" />
-            <span><strong>Penanggung Jawab:</strong> <span contentEditable suppressContentEditableWarning onBlur={e => updateFormField('inputPenanggungJawab', e.currentTarget.textContent.trim())}>{formData.inputPenanggungJawab}</span></span>
-          </span>
+        {/* Pelindung & Penanggung Jawab Executive Pills - Perfectly Centered */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mt-1">
+          <div className="h-5 sm:h-5.5 bg-white/95 text-slate-700 px-3 py-0 rounded-full border border-slate-300 shadow-2xs inline-flex items-center justify-center gap-1.5 font-medium leading-none">
+            <Shield className="w-2.5 h-2.5 text-blue-800 shrink-0 inline-block align-middle" />
+            <span className="leading-none inline-block align-middle text-[7.5px] sm:text-[8px]">
+              <strong>Pelindung:</strong> <span contentEditable suppressContentEditableWarning onBlur={e => updateFormField('inputPelindung', e.currentTarget.textContent.trim())}>{formData.inputPelindung}</span>
+            </span>
+          </div>
+          <div className="h-5 sm:h-5.5 bg-white/95 text-slate-700 px-3 py-0 rounded-full border border-slate-300 shadow-2xs inline-flex items-center justify-center gap-1.5 font-medium leading-none">
+            <Users className="w-2.5 h-2.5 text-emerald-800 shrink-0 inline-block align-middle" />
+            <span className="leading-none inline-block align-middle text-[7.5px] sm:text-[8px]">
+              <strong>Penanggung Jawab:</strong> <span contentEditable suppressContentEditableWarning onBlur={e => updateFormField('inputPenanggungJawab', e.currentTarget.textContent.trim())}>{formData.inputPenanggungJawab}</span>
+            </span>
+          </div>
         </div>
       </div>
 

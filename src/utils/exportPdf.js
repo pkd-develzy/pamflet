@@ -42,8 +42,7 @@ export async function exportToPdf({ elementId, paperSize, fileName, onStart, onC
         scale: 4,
         useCORS: true,
         allowTaint: true,
-        logging: false,
-        letterRendering: true,
+        letterRendering: false,
         backgroundColor: '#ffffff',
         imageTimeout: 20000,
         scrollX: 0,
@@ -51,6 +50,23 @@ export async function exportToPdf({ elementId, paperSize, fileName, onStart, onC
         windowWidth: element.scrollWidth,
         windowHeight: element.scrollHeight,
         onclone: (clonedDoc) => {
+          // Stabilize font metrics and vertical centering in cloned DOM
+          const style = clonedDoc.createElement('style');
+          style.textContent = `
+            * {
+              -webkit-font-smoothing: antialiased !important;
+              -moz-osx-font-smoothing: grayscale !important;
+              text-rendering: optimizeLegibility !important;
+            }
+            .inline-flex, .flex {
+              align-items: center !important;
+            }
+            th, td {
+              vertical-align: middle !important;
+            }
+          `;
+          clonedDoc.head.appendChild(style);
+
           const imgs = clonedDoc.getElementsByTagName('img');
           for (let i = 0; i < imgs.length; i++) {
             imgs[i].style.imageRendering = '-webkit-optimize-contrast';
@@ -119,8 +135,7 @@ export async function exportToImage({ elementId, paperSize, fileName, onStart, o
       scale: 4,
       useCORS: true,
       allowTaint: true,
-      logging: false,
-      letterRendering: true,
+      letterRendering: false,
       backgroundColor: '#ffffff',
       imageTimeout: 20000,
       scrollX: 0,
@@ -128,6 +143,23 @@ export async function exportToImage({ elementId, paperSize, fileName, onStart, o
       windowWidth: element.scrollWidth,
       windowHeight: element.scrollHeight,
       onclone: (clonedDoc) => {
+        // Stabilize font metrics and vertical centering in cloned DOM
+        const style = clonedDoc.createElement('style');
+        style.textContent = `
+          * {
+            -webkit-font-smoothing: antialiased !important;
+            -moz-osx-font-smoothing: grayscale !important;
+            text-rendering: optimizeLegibility !important;
+          }
+          .inline-flex, .flex {
+            align-items: center !important;
+          }
+          th, td {
+            vertical-align: middle !important;
+          }
+        `;
+        clonedDoc.head.appendChild(style);
+
         const imgs = clonedDoc.getElementsByTagName('img');
         for (let i = 0; i < imgs.length; i++) {
           imgs[i].style.imageRendering = '-webkit-optimize-contrast';
