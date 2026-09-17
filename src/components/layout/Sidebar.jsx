@@ -548,6 +548,24 @@ export default function Sidebar() {
                   className="w-full text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer"
                 />
               </div>
+              <div>
+                <label className="block text-[11px] text-slate-400 mb-1">QR WhatsApp Kontak 1</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={e => handleFileUpload('qrWa1Url', e)}
+                  className="w-full text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] text-slate-400 mb-1">QR WhatsApp Kontak 2</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={e => handleFileUpload('qrWa2Url', e)}
+                  className="w-full text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer"
+                />
+              </div>
             </div>
           )}
         </div>

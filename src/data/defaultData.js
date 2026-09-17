@@ -41,6 +41,8 @@ export const DEFAULT_POSTER_DATA = {
   logoPilkadesUrl: '/images/logo_pilkades_kalisalak.png',
   stempelPanitiaUrl: '/images/stempel_panitia_kalisalak_transparan.png',
   qrCodeUrl: '/images/qrcode_website_pilkades.png',
+  qrWa1Url: '/images/qr_wa_0878_navy.png',
+  qrWa2Url: '/images/qr_wa_0857_navy.png',
 
   // Stempel Settings
   stampVisible: true,

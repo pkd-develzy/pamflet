@@ -62,18 +62,38 @@ export default function PosterFooter() {
             </div>
           </div>
 
-          {/* Row 3: Kontak Person */}
-          <div className="flex items-start gap-2">
-            <span className="w-4 h-4 rounded-full bg-[#1e3a8a] text-amber-300 inline-flex items-center justify-center shrink-0 mt-0.5 shadow-2xs leading-none">
+          {/* Row 3: Kontak Person (QR WhatsApp Biru Dongker - Tanpa Nomor Teks) */}
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-4 rounded-full bg-[#1e3a8a] text-amber-300 inline-flex items-center justify-center shrink-0 shadow-2xs leading-none">
               <PhoneCall className="w-2.5 h-2.5" />
             </span>
-            <div
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={e => updateFormField('poskoKontak', e.currentTarget.innerText)}
-              className="posko-row flex-1 whitespace-pre-wrap outline-none focus:bg-amber-50/50 rounded px-1 min-h-[1.2em]"
-            >
-              {formData.poskoKontak || "KONTAK PERSON:\n0878-3018-8452\n0857-8635-5600"}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={e => updateFormField('poskoKontakLabel', e.currentTarget.innerText)}
+                className="font-extrabold text-[8px] sm:text-[8.5px] text-slate-900 tracking-wider uppercase font-sans leading-none shrink-0"
+              >
+                {formData.poskoKontakLabel || 'KONTAK PERSON:'}
+              </span>
+              <div className="flex items-center gap-1.5">
+                {/* QR WA 1 */}
+                <div className="p-0.5 bg-white border border-blue-900/40 rounded shadow-2xs flex items-center justify-center" title="Pindai QR WhatsApp Panitia 1">
+                  <img
+                    src={formData.qrWa1Url || '/images/qr_wa_0878_navy.png'}
+                    alt="QR WhatsApp Panitia Pilkades 1"
+                    className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+                  />
+                </div>
+                {/* QR WA 2 */}
+                <div className="p-0.5 bg-white border border-blue-900/40 rounded shadow-2xs flex items-center justify-center" title="Pindai QR WhatsApp Panitia 2">
+                  <img
+                    src={formData.qrWa2Url || '/images/qr_wa_0857_navy.png'}
+                    alt="QR WhatsApp Panitia Pilkades 2"
+                    className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
