@@ -9,7 +9,7 @@ export const DEFAULT_POSTER_DATA = {
   
   // Banner Hari-H & Info Pemilihan
   inputHariTanggal: 'FEBRUARI 2027',
-  inputWaktuTPS: 'Pukul 07.00 WIB - SELESAI',
+  inputWaktuTPS: 'Pukul 13.00 WIB - SELESAI',
   inputTempatTPS: 'Lapangan Desa Kalisalak',
   inputHotline: '0878-3018-8452 / 0857-8635-5600',
   inputWebsiteUrl: 'https://kalisalak-tegal.desa.id/pilkades',

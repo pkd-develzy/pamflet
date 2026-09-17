@@ -18,8 +18,8 @@ export default function AlurSheet() {
   const steps3D = [
     {
       no: 1,
-      title: 'Pendaftaran & e-KTP',
-      desc: 'Tunjukkan C6 & e-KTP kepada petugas KPPS di pintu masuk TPS.',
+      title: 'Pendaftaran & KTP/KK',
+      desc: 'Tunjukkan C6 & KTP/KK Berdomisili di Desa Kalisalak kepada petugas KPPS.',
       icon: <IdCard className="w-4 h-4 text-cyan-400" />,
       color: '#06b6d4',
       bgGrad: 'linear-gradient(135deg, rgba(6,182,212,0.15) 0%, rgba(8,145,178,0.25) 100%)'
