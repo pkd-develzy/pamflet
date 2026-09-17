@@ -1,0 +1,141 @@
+import React from 'react';
+import { usePoster } from '../../context/PosterContext';
+import InteractiveStamp from './InteractiveStamp';
+import { MapPin, Home, UserCheck, PhoneCall } from 'lucide-react';
+
+export default function PosterFooter() {
+  const { formData, updateFormField } = usePoster();
+
+  return (
+    <footer className="poster-footer-box mt-1 grid grid-cols-12 gap-3 pt-1 bg-white select-none">
+      {/* Left Box: Posko Sekretariat & Informasi */}
+      <div className="posko-box col-span-7 bg-white border border-slate-300 rounded overflow-hidden shadow-xs flex flex-col justify-between">
+        {/* Blue Ribbon Header with Gold Hairline */}
+        <div className="bg-gradient-to-r from-[#1e3a8a] to-[#0f2744] text-white px-2.5 py-1 flex items-center justify-between shadow-2xs border-b border-amber-400">
+          <div className="flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5 text-amber-300" />
+            <span
+              contentEditable
+              suppressContentEditableWarning
+              className="posko-header-title text-[9.5px] sm:text-[10px] font-black uppercase tracking-wider font-sans text-white"
+            >
+              POSKO SEKRETARIAT &amp; PENGADUAN PILKADES
+            </span>
+          </div>
+
+          {/* Quick Spacing Controls */}
+          <div className="no-print flex items-center gap-1 text-[8px] bg-white/10 px-1.5 py-0.5 rounded-full border border-white/20">
+            <span className="text-slate-300">Jarak:</span>
+            <button
+              type="button"
+              onClick={() => updateFormField('poskoSpacing', Math.max((formData.poskoSpacing ?? 8) - 2, 2))}
+              className="w-4 h-4 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center justify-center leading-none"
+              title="Persempit Jarak Baris"
+            >
+              &minus;
+            </button>
+            <span className="font-mono text-amber-200 min-w-[20px] text-center">{formData.poskoSpacing ?? 8}px</span>
+            <button
+              type="button"
+              onClick={() => updateFormField('poskoSpacing', Math.min((formData.poskoSpacing ?? 8) + 2, 28))}
+              className="w-4 h-4 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center justify-center leading-none"
+              title="Perlebar Jarak Baris"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        {/* Info Rows (Supports pressing Enter for line breaks & custom spacing) */}
+        <div
+          className="p-2 text-[8.5px] sm:text-[9px] text-slate-800 leading-snug flex flex-col justify-center"
+          style={{ gap: `${formData.poskoSpacing !== undefined ? formData.poskoSpacing : 8}px` }}
+        >
+          {/* Row 1: Alamat */}
+          <div className="flex items-start gap-2">
+            <span className="w-4 h-4 rounded-full bg-[#1e3a8a] text-amber-300 flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+              <Home className="w-2.5 h-2.5" />
+            </span>
+            <div
+              contentEditable
+              suppressContentEditableWarning
+              onBlur={e => updateFormField('poskoAlamat', e.currentTarget.innerText)}
+              className="posko-row flex-1 whitespace-pre-wrap outline-none focus:bg-amber-50/50 rounded px-1 min-h-[1.2em]"
+            >
+              {formData.poskoAlamat || `Alamat Sekretariat: Balai Desa ${formData.inputNamaDesa}, Kec. ${formData.inputKecamatan}, Kab. ${formData.inputKabupaten}.`}
+            </div>
+          </div>
+
+          {/* Row 2: Syarat */}
+          <div className="flex items-start gap-2">
+            <span className="w-4 h-4 rounded-full bg-[#1e3a8a] text-amber-300 flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+              <UserCheck className="w-2.5 h-2.5" />
+            </span>
+            <div
+              contentEditable
+              suppressContentEditableWarning
+              onBlur={e => updateFormField('poskoSyarat', e.currentTarget.innerText)}
+              className="posko-row flex-1 whitespace-pre-wrap outline-none focus:bg-amber-50/50 rounded px-1 min-h-[1.2em]"
+            >
+              {formData.poskoSyarat || 'Syarat Mencoblos: Membawa Surat Undangan (C6) & e-KTP / KK Asli.'}
+            </div>
+          </div>
+
+          {/* Row 3: Kontak Person */}
+          <div className="flex items-start gap-2">
+            <span className="w-4 h-4 rounded-full bg-[#1e3a8a] text-amber-300 flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+              <PhoneCall className="w-2.5 h-2.5" />
+            </span>
+            <div
+              contentEditable
+              suppressContentEditableWarning
+              onBlur={e => updateFormField('poskoKontak', e.currentTarget.innerText)}
+              className="posko-row flex-1 whitespace-pre-wrap outline-none focus:bg-amber-50/50 rounded px-1 min-h-[1.2em]"
+            >
+              {formData.poskoKontak || "KONTAK PERSON:\n0878-3018-8452\n0857-8635-5600"}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Area: Pengesahan & Tanda Tangan */}
+      <div className="col-span-5 flex flex-col items-center justify-between text-center relative pt-0.5">
+        <div className="text-[8.5px] sm:text-[9px] text-slate-700 leading-tight">
+          Ditetapkan di: Desa {formData.inputNamaDesa}, Kabupaten {formData.inputKabupaten}<br />
+          Pada Bulan: <span
+            contentEditable
+            suppressContentEditableWarning
+            onBlur={e => updateFormField('inputTglPenetapan', e.currentTarget.textContent.trim())}
+            className="font-semibold text-slate-900"
+          >
+            {formData.inputTglPenetapan}
+          </span>
+        </div>
+
+        <div
+          contentEditable
+          suppressContentEditableWarning
+          className="signature-title text-[9.5px] sm:text-[10px] font-black text-slate-900 tracking-wider uppercase font-sans mt-0.5"
+        >
+          PANITIA PEMILIHAN KEPALA DESA
+        </div>
+
+        {/* Space for Signature & Stamp */}
+        <div className="h-14 w-full relative flex items-center justify-center my-1">
+          <InteractiveStamp />
+        </div>
+
+        <div className="text-[10px] sm:text-[10.5px] font-bold text-slate-900 pt-0.5">
+          (&nbsp;<span
+            contentEditable
+            suppressContentEditableWarning
+            onBlur={e => updateFormField('inputKetuaPanitia', e.currentTarget.textContent.trim())}
+            className="signature-name underline font-black"
+          >
+            {formData.inputKetuaPanitia}
+          </span>&nbsp;)
+        </div>
+      </div>
+    </footer>
+  );
+}
