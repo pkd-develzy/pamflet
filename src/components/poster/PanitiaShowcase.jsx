@@ -6,15 +6,15 @@ export default function PanitiaShowcase() {
   const { formData, updateFormField } = usePoster();
 
   const cards = [
-    { no: 1, title: 'KETUA', field: 'inputKetuaPanitia', name: formData.inputKetuaPanitia, isCore: true },
-    { no: 2, title: 'SEKRETARIS', field: 'inputSekretaris', name: formData.inputSekretaris, isCore: true },
-    { no: 3, title: 'BENDAHARA', field: 'inputBendahara', name: formData.inputBendahara, isCore: true },
-    { no: 4, title: 'SEKSI PENDAFTARAN PEMILIH', field: 'inputSeksiDaftar', name: formData.inputSeksiDaftar, isCore: false },
-    { no: 5, title: 'SEKSI PENJARINGAN', field: 'inputSeksiJaring', name: formData.inputSeksiJaring, isCore: false },
-    { no: 6, title: 'SEKSI PENYARINGAN & UJI KOMPETENSI', field: 'inputSeksiSaring', name: formData.inputSeksiSaring, isCore: false },
-    { no: 7, title: 'SEKSI PEMUNGUTAN & PENGHITUNGAN SUARA', field: 'inputSeksiHitung', name: formData.inputSeksiHitung, isCore: false },
-    { no: 8, title: 'SEKSI KEAMANAN', field: 'inputSeksiAman', name: formData.inputSeksiAman, isCore: false },
-    { no: 9, title: 'SEKSI PERLENGKAPAN & DOKUMENTASI', field: 'inputSeksiLengkap', name: formData.inputSeksiLengkap, isCore: false },
+    { title: 'KETUA', field: 'inputKetuaPanitia', name: formData.inputKetuaPanitia, isCore: true },
+    { title: 'SEKRETARIS', field: 'inputSekretaris', name: formData.inputSekretaris, isCore: true },
+    { title: 'BENDAHARA', field: 'inputBendahara', name: formData.inputBendahara, isCore: true },
+    { title: 'SEKSI PENDAFTARAN PEMILIH', field: 'inputSeksiDaftar', name: formData.inputSeksiDaftar, isCore: false },
+    { title: 'SEKSI PENJARINGAN', field: 'inputSeksiJaring', name: formData.inputSeksiJaring, isCore: false },
+    { title: 'SEKSI PENYARINGAN & UJI KOMPETENSI', field: 'inputSeksiSaring', name: formData.inputSeksiSaring, isCore: false },
+    { title: 'SEKSI PEMUNGUTAN & PENGHITUNGAN SUARA', field: 'inputSeksiHitung', name: formData.inputSeksiHitung, isCore: false },
+    { title: 'SEKSI KEAMANAN', field: 'inputSeksiAman', name: formData.inputSeksiAman, isCore: false },
+    { title: 'SEKSI PERLENGKAPAN & DOKUMENTASI', field: 'inputSeksiLengkap', name: formData.inputSeksiLengkap, isCore: false },
   ];
 
   return (
@@ -60,33 +60,27 @@ export default function PanitiaShowcase() {
         </div>
       </div>
 
-      {/* 9 Modern Executive Cards (All Unified to Ketua's Prestigious Design) */}
+      {/* 9 Modern Executive Cards (Ultra-Premium Royal Navy & Gold, Zero Numbers, Clean & Unobstructed) */}
       <div className="grid grid-cols-9 gap-1 sm:gap-1.5 w-full">
         {cards.map(c => (
           <div
-            key={c.no}
-            className="w-full flex flex-col rounded-md overflow-hidden text-center transition-all border border-blue-900/60 bg-gradient-to-b from-blue-50/30 to-white shadow-2xs ring-1 ring-amber-400/30"
+            key={c.field}
+            className="w-full flex flex-col rounded-md overflow-hidden text-center transition-all border border-blue-950/70 bg-white shadow-xs ring-1 ring-amber-400/40"
           >
-            {/* Card Header: Royal Navy with Amber Gold Hairline (Always 100% Width) */}
-            <div className="panitia-card-header w-full relative flex items-center justify-center min-h-[36px] sm:min-h-[40px] px-1 py-2 bg-gradient-to-r from-[#172554] via-[#1e3a8a] to-[#172554] text-white border-b-2 border-amber-400 shrink-0">
-              {/* Gold Metallic Badge */}
-              <span className="panitia-badge absolute -top-1 -left-1 w-4 h-4 rounded-full flex items-center justify-center font-black shadow-xs bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300 text-slate-950 text-[7.5px] border border-amber-500 z-10">
-                {c.no}
-              </span>
-
-              {/* Role Title in Golden Amber: full multi-line wrapping, never cut off */}
+            {/* Card Header: Royal Navy with Amber Gold Hairline (100% Dedicated to Role Title, Zero Numbers) */}
+            <div className="panitia-card-header w-full flex-1 flex items-center justify-center min-h-[38px] px-1 py-1.5 bg-gradient-to-r from-[#172554] via-[#1e3a8a] to-[#172554] text-white border-b-2 border-amber-400 shadow-[inset_0_1px_2px_rgba(255,255,255,0.15)]">
               <span
                 contentEditable
                 suppressContentEditableWarning
-                className="w-full text-[6.8px] sm:text-[7.5px] font-black uppercase tracking-tight leading-[1.2] text-amber-200 px-0.5 whitespace-normal break-words text-center"
+                className="w-full text-[6.8px] sm:text-[7.5px] font-black uppercase tracking-tight leading-[1.22] text-amber-200 px-0.5 whitespace-normal break-words text-center flex items-center justify-center"
                 title={c.title}
               >
                 {c.title}
               </span>
             </div>
 
-            {/* Card Body with Official's Name in Navy (Always 100% Width) */}
-            <div className="panitia-card-body w-full p-1.5 flex-1 flex items-center justify-center min-h-[24px] bg-amber-50/20">
+            {/* Card Body: Official Nameplate (Clean Luxury Ivory/White with Navy Bold Text) */}
+            <div className="panitia-card-body w-full p-1.5 flex items-center justify-center min-h-[26px] bg-gradient-to-b from-slate-50/40 to-white">
               <span
                 contentEditable
                 suppressContentEditableWarning

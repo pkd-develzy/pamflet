@@ -1,4 +1,4 @@
-import * as htmlToImage from 'html-to-image';
+import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
 /**
@@ -9,11 +9,11 @@ async function prepareExportEnvironment() {
     await document.fonts.ready;
   }
   // Brief pause for browser rendering tick & reflow
-  await new Promise(resolve => setTimeout(resolve, 100));
+  await new Promise(resolve => setTimeout(resolve, 150));
 }
 
 /**
- * Export element to ultra-sharp, pixel-perfect PDF using native browser engine
+ * Export element to ultra-sharp, pixel-perfect PDF using native high-res canvas + jsPDF
  */
 export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, onStart, onComplete, onError }) {
   const element = document.getElementById(elementId);
@@ -45,15 +45,44 @@ export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, o
     const pdfFormat = isAlur ? 'a4' : (isA4 ? 'a4' : (isA3 ? 'a3' : [329, 483]));
     const orientation = isAlur ? 'landscape' : 'portrait';
 
-    // pixelRatio 3 provides crystal-clear 300+ DPI resolution without memory crashes
-    const dataUrl = await htmlToImage.toPng(element, {
-      pixelRatio: 3,
-      cacheBust: true,
-      skipAutoScale: true,
+    // Scale 3.5 provides true 300+ DPI print-ready density without hitting canvas memory limits
+    const renderScale = isA4 ? 4 : 3.5;
+
+    const canvas = await html2canvas(element, {
+      scale: renderScale,
+      useCORS: true,
+      allowTaint: true,
+      letterRendering: false,
       backgroundColor: '#ffffff',
-      style: {
-        transform: 'none',
-        margin: '0',
+      imageTimeout: 20000,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight,
+      onclone: (clonedDoc) => {
+        const style = clonedDoc.createElement('style');
+        style.textContent = `
+          * {
+            -webkit-font-smoothing: antialiased !important;
+            -moz-osx-font-smoothing: grayscale !important;
+            text-rendering: optimizeLegibility !important;
+          }
+          th, td {
+            vertical-align: middle !important;
+          }
+        `;
+        clonedDoc.head.appendChild(style);
+
+        const imgs = clonedDoc.getElementsByTagName('img');
+        for (let i = 0; i < imgs.length; i++) {
+          imgs[i].style.imageRendering = '-webkit-optimize-contrast';
+        }
+      },
+      ignoreElements: (el) => {
+        if (!el) return false;
+        if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;
+        if (el.getAttribute && (el.getAttribute('data-html2canvas-ignore') === 'true' || el.getAttribute('data-no-print') === 'true')) return true;
+        return false;
       }
     });
 
@@ -68,7 +97,9 @@ export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, o
     const pdfWidth = doc.internal.pageSize.getWidth();
     const pdfHeight = doc.internal.pageSize.getHeight();
 
-    doc.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+    // Embed high-res PNG image into jsPDF
+    const dataUrl = canvas.toDataURL('image/png', 1.0);
+    doc.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'SLOW');
     doc.save(fileName || `Pamflet_Pilkades_${formatName}_HDPlus_Siap_Cetak.pdf`);
 
     if (onComplete) onComplete();
@@ -85,7 +116,7 @@ export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, o
 }
 
 /**
- * Export element to ultra-sharp, lossless PNG image using native browser engine
+ * Export element to ultra-sharp, lossless PNG image (300+ DPI, non-pixelated)
  */
 export async function exportToImage({ elementId, paperSize = 'a3plus', fileName, onStart, onComplete, onError }) {
   const element = document.getElementById(elementId);
@@ -110,29 +141,70 @@ export async function exportToImage({ elementId, paperSize = 'a3plus', fileName,
 
     await prepareExportEnvironment();
 
+    const isAlur = elementId === 'posterAlurContent';
     const isA4 = paperSize.toLowerCase() === 'a4';
     const isA3 = paperSize.toLowerCase() === 'a3';
-    const formatName = isA4 ? 'A4' : (isA3 ? 'A3' : 'A3Plus_Master');
+    const formatName = isAlur ? 'A4_Landscape' : (isA4 ? 'A4' : (isA3 ? 'A3' : 'A3Plus_Master'));
 
-    // Use pixelRatio: 3 for high-density 300+ DPI output
-    const dataUrl = await htmlToImage.toPng(element, {
-      pixelRatio: 3,
-      cacheBust: true,
-      skipAutoScale: true,
+    // Scale 3.5 provides true 300+ DPI print-ready density (A3 ~ 3928 x 5556 px) with zero pixelation
+    const renderScale = isA4 ? 4 : 3.5;
+
+    const canvas = await html2canvas(element, {
+      scale: renderScale,
+      useCORS: true,
+      allowTaint: true,
+      letterRendering: false,
       backgroundColor: '#ffffff',
-      style: {
-        transform: 'none',
-        margin: '0',
+      imageTimeout: 20000,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight,
+      onclone: (clonedDoc) => {
+        const style = clonedDoc.createElement('style');
+        style.textContent = `
+          * {
+            -webkit-font-smoothing: antialiased !important;
+            -moz-osx-font-smoothing: grayscale !important;
+            text-rendering: optimizeLegibility !important;
+          }
+          th, td {
+            vertical-align: middle !important;
+          }
+        `;
+        clonedDoc.head.appendChild(style);
+
+        const imgs = clonedDoc.getElementsByTagName('img');
+        for (let i = 0; i < imgs.length; i++) {
+          imgs[i].style.imageRendering = '-webkit-optimize-contrast';
+        }
+      },
+      ignoreElements: (el) => {
+        if (!el) return false;
+        if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;
+        if (el.getAttribute && (el.getAttribute('data-html2canvas-ignore') === 'true' || el.getAttribute('data-no-print') === 'true')) return true;
+        return false;
       }
     });
 
-    // Trigger direct lossless download
-    const link = document.createElement('a');
-    link.download = fileName || `Pamflet_Pilkades_${formatName}_HDPlus_Lossless.png`;
-    link.href = dataUrl;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Stream download via Blob URL for high memory efficiency on high-megapixel image
+    await new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          reject(new Error('Gagal mengonversi canvas ke Blob PNG'));
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = fileName || `Pamflet_Pilkades_${formatName}_HDPlus_Lossless.png`;
+        link.href = url;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+        resolve();
+      }, 'image/png', 1.0);
+    });
 
     if (onComplete) onComplete();
   } catch (err) {

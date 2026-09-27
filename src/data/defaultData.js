@@ -1,23 +1,26 @@
 export const DEFAULT_POSTER_DATA = {
+  // Judul Utama Poster
+  inputJudulPoster: 'SOSIALISASI TAHAPAN & JADWAL PILKADES',
+
   // Wilayah & Kop
   inputNamaDesa: 'KALISALAK',
   inputKecamatan: 'MARGASARI',
   inputKabupaten: 'TEGAL',
   inputProvinsi: 'JAWA TENGAH',
-  inputPeriode: '2026 - 2032',
-  inputTahun: '2026',
+  inputPeriode: '2027 - 2033',
+  inputTahun: '2027',
   
   // Banner Hari-H & Info Pemilihan
   inputHariTanggal: 'FEBRUARI 2027',
   inputWaktuTPS: 'Pukul 13.00 WIB - SELESAI',
   inputTempatTPS: 'Lapangan Desa Kalisalak',
-  inputHotline: '0878-3018-8452 / 0857-8635-5600',
+  inputHotline: '0878-3018-8452 / 0857-8635-5600 / 0852-9231-0471',
   inputWebsiteUrl: 'https://kalisalak-tegal.desa.id/pilkades',
   
   // Posko Sekretariat & Informasi (Editable & Multiline)
   poskoAlamat: 'Alamat Sekretariat: Balai Desa KALISALAK, Kec. MARGASARI, Kab. TEGAL.',
   poskoSyarat: 'Syarat Mencoblos: Membawa Surat Undangan (C6) & e-KTP / KK Asli.',
-  poskoKontak: 'KONTAK PERSON:\n0878-3018-8452\n0857-8635-5600',
+  poskoKontak: 'KONTAK PERSON:\n0878-3018-8452\n0857-8635-5600\n0852-9231-0471',
   poskoSpacing: 8,
   
   // Panitia Penandatangan
@@ -29,12 +32,12 @@ export const DEFAULT_POSTER_DATA = {
   inputSeksiDaftar: 'M. Lu’lu Khulaluddin, S.F.U',
   inputSeksiJaring: 'Hero Budiadi',
   inputSeksiSaring: 'Urip',
-  inputSeksiHitung: 'Wihadi',
+  inputSeksiHitung: 'DIAH LESTARI, S.Ip.',
   inputSeksiAman: 'Topik Santoso',
   inputSeksiLengkap: 'Mohamad Khumaidi, S.Pd.I',
   inputTglPenetapan: 'November 2026',
   inputLokasiPenetapan: 'Kalisalak',
-  inputNomorSurat: '141.1 / 01 / PAN.PILKADES / 2026',
+  inputNomorSurat: '141.1 / 01 / PAN.PILKADES / 2027',
 
   // Logos & Images
   logoPemdaUrl: '/images/logo_kabupaten_tegal.png',
@@ -43,6 +46,7 @@ export const DEFAULT_POSTER_DATA = {
   qrCodeUrl: '/images/qrcode_website_pilkades.png',
   qrWa1Url: '/images/qr_wa_0878_navy.png',
   qrWa2Url: '/images/qr_wa_0857_navy.png',
+  qrWa3Url: '/images/qr_wa_0852_navy.png',
 
   // Stempel Settings
   stampVisible: true,

@@ -106,7 +106,7 @@
 }
 
 .page-a4 .panitia-card-header {
-  min-height: 26px !important;
+  min-height: 32px !important;
   font-size: 6px !important;
   line-height: 1.15 !important;
   padding: 1.5px 2px !important;
@@ -119,9 +119,10 @@
 }
 
 .page-a4 .panitia-badge {
-  width: 12px !important;
-  height: 12px !important;
+  width: 11px !important;
+  height: 11px !important;
   font-size: 6.5px !important;
+  margin-bottom: 1px !important;
 }
 
 .page-a4 .table-block-wrapper table th {
@@ -286,10 +287,10 @@
 }
 
 .page-a3plus .panitia-card-header {
-  min-height: 42px !important;
-  font-size: 8.5px !important;
-  line-height: 1.2 !important;
-  padding: 3px 4px !important;
+  min-height: 48px !important;
+  font-size: 8px !important;
+  line-height: 1.18 !important;
+  padding: 2.5px 3px !important;
 }
 
 .page-a3plus .panitia-card-body {
@@ -299,9 +300,10 @@
 }
 
 .page-a3plus .panitia-badge {
-  width: 18px !important;
-  height: 18px !important;
-  font-size: 10px !important;
+  width: 16px !important;
+  height: 16px !important;
+  font-size: 9.5px !important;
+  margin-bottom: 2px !important;
 }
 
 .page-a3plus .table-block-wrapper table th {
@@ -347,8 +349,21 @@
   padding: 4px 12px !important;
 }
 
-.page-a3plus .panitia-pill span {
-  /* no transform offset needed */
+.page-a3plus .panitia-card-header {
+  min-height: 50px !important;
+}
+
+.page-a3plus .panitia-card-header span {
+  font-size: 8.6px !important;
+  line-height: 1.22 !important;
+}
+
+.page-a3plus .panitia-card-body {
+  min-height: 32px !important;
+}
+
+.page-a3plus .panitia-card-body span {
+  font-size: 9.6px !important;
 }
 
 .page-a3plus .table-sublist {
@@ -468,10 +483,10 @@
 }
 
 .page-a3 .panitia-card-header {
-  min-height: 36px !important;
-  font-size: 7.5px !important;
-  line-height: 1.18 !important;
-  padding: 2px 3px !important;
+  min-height: 42px !important;
+  font-size: 7.2px !important;
+  line-height: 1.15 !important;
+  padding: 2px 2px !important;
 }
 
 .page-a3 .panitia-card-body {
@@ -481,9 +496,10 @@
 }
 
 .page-a3 .panitia-badge {
-  width: 15px !important;
-  height: 15px !important;
+  width: 14px !important;
+  height: 14px !important;
   font-size: 8.5px !important;
+  margin-bottom: 1.5px !important;
 }
 
 .page-a3 .table-block-wrapper table th {
@@ -504,17 +520,22 @@
 }
 
 .page-a3 .table-header-bar {
-  padding-top: 5px !important;
-  padding-bottom: 5px !important;
+  padding-top: 4.5px !important;
+  padding-bottom: 4.5px !important;
   padding-left: 10px !important;
   padding-right: 10px !important;
-  min-height: 26px !important;
+  min-height: 28px !important;
   align-items: center !important;
   display: flex !important;
 }
 
 .page-a3 .table-header-title {
-  font-size: 11.5px !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .page-a3 .panitia-header-badge {
@@ -529,8 +550,21 @@
   padding: 3px 10px !important;
 }
 
-.page-a3 .panitia-pill span {
-  /* no transform offset needed */
+.page-a3 .panitia-card-header {
+  min-height: 46px !important;
+}
+
+.page-a3 .panitia-card-header span {
+  font-size: 8px !important;
+  line-height: 1.22 !important;
+}
+
+.page-a3 .panitia-card-body {
+  min-height: 28px !important;
+}
+
+.page-a3 .panitia-card-body span {
+  font-size: 8.8px !important;
 }
 
 .page-a3 .table-sublist {
@@ -565,6 +599,11 @@
 
 .page-a3 .posko-header-title {
   font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .page-a3 .posko-row {

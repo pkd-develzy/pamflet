@@ -21,18 +21,20 @@ export default function QrCard({ className = '', style = {} }) {
       className={`qr-card-container table-block-wrapper flex-1 flex flex-col justify-between border-2 border-[#1e3a8a] rounded-lg overflow-hidden bg-gradient-to-b from-blue-50/20 to-white shadow-2xs p-3 relative ${className}`}
     >
       {/* Top Header Bar with Gold Hairline */}
-      <div className="flex items-center justify-between border-b border-amber-400/60 pb-2 mb-2 select-none min-h-[26px]" style={{ alignItems: 'center' }}>
-        <div className="flex gap-1.5 text-[#1e3a8a]" style={{ alignItems: 'center' }}>
-          <ShieldCheck className="w-4 h-4 text-amber-500 fill-amber-500/20 shrink-0" />
-          <span className="font-extrabold text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans" style={{ lineHeight: 1 }}>
+      <div className="table-header-bar flex items-center justify-between border-b border-amber-400/60 pb-1.5 mb-2 select-none min-h-[26px] sm:min-h-[28px]">
+        <div className="flex items-center gap-2 text-[#1e3a8a]">
+          <span className="flex items-center justify-center shrink-0">
+            <ShieldCheck className="w-3.5 h-3.5 text-amber-500 fill-amber-500/20 shrink-0" />
+          </span>
+          <span className="table-header-title font-black uppercase tracking-wider font-sans leading-none flex items-center text-[#1e3a8a]">
             PORTAL RESMI DIGITAL
           </span>
-          <span className="text-[7.5px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold border border-emerald-300 inline-flex items-center ml-1" style={{ lineHeight: 1 }}>
+          <span className="text-[7.5px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold border border-emerald-300 inline-flex items-center ml-1 leading-none">
             TERVERIFIKASI
           </span>
         </div>
 
-        <div className="text-[7.5px] text-slate-500 font-bold uppercase tracking-widest font-sans" style={{ lineHeight: 1 }}>
+        <div className="text-[7.5px] sm:text-[8px] text-slate-500 font-bold uppercase tracking-widest font-sans leading-none">
           DESA {formData.inputNamaDesa}
         </div>
       </div>

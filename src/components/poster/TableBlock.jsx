@@ -116,38 +116,41 @@ export default function TableBlock({
       className={`table-block-wrapper flex flex-col border border-slate-300 rounded overflow-hidden bg-white shadow-2xs ${className}`}
     >
       {/* Header Bar: Sovereign Executive Style with Gold Hairline */}
-      <div className={`table-header-bar px-3 flex items-center justify-between ${themeConfig.bar} select-none shrink-0 min-h-[26px] sm:min-h-[30px]`} style={{ alignItems: 'center' }}>
-        <div className="flex gap-2 flex-1 min-w-0" style={{ alignItems: 'center' }}>
-          <span className="inline-flex shrink-0" style={{ alignItems: 'center', lineHeight: 1 }}>
+      <div className={`table-header-bar px-3 flex items-center justify-between ${themeConfig.bar} select-none shrink-0 min-h-[26px] sm:min-h-[28px]`}>
+        <div className="flex items-center gap-2 flex-1 min-w-0">
+          <span className="flex items-center justify-center shrink-0">
             {themeConfig.icon}
           </span>
           <span
             contentEditable
             suppressContentEditableWarning
-            className="table-header-title font-black text-[9.5px] sm:text-[10px] tracking-wider uppercase font-sans text-white drop-shadow-2xs"
-            style={{ lineHeight: 1, display: 'block' }}
+            className="table-header-title font-black uppercase tracking-wider font-sans text-white drop-shadow-2xs leading-none flex items-center"
           >
             {title}
           </span>
         </div>
       </div>
 
-
       {/* Table Content Container: expands flexibly to eliminate empty space */}
       <div
         className="flex-1 flex flex-col min-h-0 overflow-hidden"
         style={{ fontSize: `${currentScale * 100}%` }}
       >
-        <table className="w-full h-full border-collapse text-left border border-slate-300">
+        <table className="w-full h-full border-collapse text-left border border-slate-300 table-fixed">
+          <colgroup>
+            <col style={{ width: '32px' }} />
+            <col />
+            <col style={{ width: '130px' }} />
+          </colgroup>
           <thead>
             <tr className={`border-b border-slate-300 font-extrabold text-[8px] sm:text-[8.5px] uppercase tracking-wider ${themeConfig.th} shrink-0`}>
-              <th className="w-7 text-center py-2 px-1 border-r border-slate-300 align-middle font-extrabold">
+              <th className="text-center py-1.5 px-1 border-r border-slate-300 align-middle font-extrabold">
                 {headers[0]}
               </th>
-              <th className="py-2 px-2.5 border-r border-slate-300 align-middle font-extrabold">
+              <th className="text-left py-1.5 px-2 border-r border-slate-300 align-middle font-extrabold">
                 {headers[1]}
               </th>
-              <th className="w-32 text-center py-2 px-1.5 align-middle font-extrabold">
+              <th className="text-center py-1.5 px-1.5 align-middle font-extrabold">
                 {headers[2]}
               </th>
             </tr>
@@ -160,10 +163,10 @@ export default function TableBlock({
                   row.highlight ? 'bg-red-50/70 font-bold' : 'hover:bg-slate-50/80'
                 }`}
               >
-                <td className="w-7 text-center font-bold py-1 border-r border-slate-200 align-middle text-slate-800">
+                <td className="text-center font-bold py-1 px-1 border-r border-slate-200 align-middle text-slate-800">
                   {row.no}
                 </td>
-                <td className="py-1 px-2 border-r border-slate-200 align-middle">
+                <td className="text-left py-1 px-2 border-r border-slate-200 align-middle overflow-hidden">
                   {typeof row.kegiatan === 'string' ? (
                     <div
                       contentEditable
@@ -183,9 +186,9 @@ export default function TableBlock({
                         {row.kegiatan.title}
                       </div>
                       {row.kegiatan.sublist && (
-                        <ul className="table-sublist list-none text-[7.5px] sm:text-[8px] text-slate-800 pl-1 space-y-0.5 mt-0.5 font-normal">
+                        <ul className="table-sublist list-none text-[7.5px] sm:text-[8px] text-slate-800 pl-1.5 space-y-0.5 mt-0.5 font-normal">
                           {row.kegiatan.sublist.map((sub, sIdx) => (
-                            <li key={sIdx} contentEditable suppressContentEditableWarning>
+                            <li key={sIdx} contentEditable suppressContentEditableWarning className="leading-tight">
                               {sub}
                             </li>
                           ))}
@@ -202,7 +205,7 @@ export default function TableBlock({
                     contentEditable
                     suppressContentEditableWarning
                     onBlur={e => handleWaktuBlur(e, idx, rowSpanInfo[idx].span)}
-                    className={`w-32 text-center px-1.5 py-1 align-middle font-black border-l border-b border-slate-300 bg-slate-50/75 tracking-wide ${
+                    className={`text-center px-1.5 py-1 align-middle font-black border-l border-b border-slate-300 bg-slate-50/75 tracking-wide ${
                       row.highlight ? 'text-red-700 font-black' : 'text-slate-900'
                     }`}
                   >

@@ -46,6 +46,27 @@ export function PosterProvider({ children }) {
                 return item.replace(/^[a-z]\./i, `${letters[idx]}.`);
               });
           }
+          if (!parsed.qrWa3Url) {
+            parsed.qrWa3Url = DEFAULT_POSTER_DATA.qrWa3Url;
+          }
+          if (!parsed.inputJudulPoster || parsed.inputJudulPoster.includes('PENGUMUMAN TAHAPAN')) {
+            parsed.inputJudulPoster = DEFAULT_POSTER_DATA.inputJudulPoster;
+          }
+          if (!parsed.inputTahun || parsed.inputTahun === '2026') {
+            parsed.inputTahun = '2027';
+          }
+          if (parsed.inputNomorSurat && parsed.inputNomorSurat.includes('2026')) {
+            parsed.inputNomorSurat = parsed.inputNomorSurat.replace('2026', '2027');
+          }
+          if (parsed.inputPeriode && parsed.inputPeriode.includes('2026')) {
+            parsed.inputPeriode = '2027 - 2033';
+          }
+          if (!parsed.inputHotline || !parsed.inputHotline.includes('0852-9231-0471')) {
+            parsed.inputHotline = DEFAULT_POSTER_DATA.inputHotline;
+          }
+          if (!parsed.inputSeksiHitung || parsed.inputSeksiHitung === 'Wihadi') {
+            parsed.inputSeksiHitung = 'DIAH LESTARI, S.Ip.';
+          }
           return { ...DEFAULT_POSTER_DATA, ...parsed };
         }
       }
@@ -251,7 +272,7 @@ export function PosterProvider({ children }) {
   };
 
   const resetAllToDefault = () => {
-    if (window.confirm('Kembalikan semua data, layout, dan ukuran ke preset standar resmi Kalisalak 2026?')) {
+    if (window.confirm('Kembalikan semua data, layout, dan ukuran ke preset standar resmi Kalisalak 2027?')) {
       setPaperSize('a3plus');
       setFormData(DEFAULT_POSTER_DATA);
       setColumnLayout(INITIAL_LAYOUT);

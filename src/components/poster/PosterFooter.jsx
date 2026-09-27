@@ -11,19 +11,20 @@ export default function PosterFooter() {
       {/* Left Box: Posko Sekretariat & Informasi */}
       <div className="posko-box col-span-7 bg-white border border-slate-300 rounded overflow-hidden shadow-xs flex flex-col justify-between">
         {/* Blue Ribbon Header with Gold Hairline */}
-        <div className="bg-gradient-to-r from-[#1e3a8a] to-[#0f2744] text-white px-3 flex items-center justify-between shadow-2xs border-b border-amber-400 min-h-[26px] sm:min-h-[28px]" style={{ alignItems: 'center' }}>
-          <div className="flex gap-1.5 flex-1 min-w-0" style={{ alignItems: 'center' }}>
-            <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0" style={{ flexShrink: 0 }} />
+        <div className="table-header-bar bg-gradient-to-r from-[#1e3a8a] to-[#0f2744] text-white px-3 flex items-center justify-between shadow-2xs border-b border-amber-400 min-h-[26px] sm:min-h-[28px]">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
+            <span className="flex items-center justify-center shrink-0 text-amber-300">
+              <MapPin className="w-3.5 h-3.5 shrink-0" />
+            </span>
             <span
               contentEditable
               suppressContentEditableWarning
-              className="posko-header-title text-[9.5px] sm:text-[10px] font-black uppercase tracking-wider font-sans text-white"
-              style={{ lineHeight: 1, display: 'block' }}
+              className="table-header-title posko-header-title font-black uppercase tracking-wider font-sans text-white leading-none flex items-center"
             >
               POSKO SEKRETARIAT &amp; PENGADUAN PILKADES
             </span>
           </div>
-          <div className="text-[7.5px] text-amber-300/80 font-bold uppercase tracking-wider font-sans" style={{ lineHeight: 1, flexShrink: 0 }}>
+          <div className="text-[7.5px] text-amber-300/80 font-bold uppercase tracking-wider font-sans leading-none flex items-center shrink-0">
             RESMI
           </div>
         </div>
@@ -79,7 +80,7 @@ export default function PosterFooter() {
               </span>
               <div className="flex items-center gap-1.5">
                 {/* QR WA 1 */}
-                <div className="p-0.5 bg-white border border-blue-900/40 rounded shadow-2xs flex items-center justify-center" title="Pindai QR WhatsApp Panitia 1">
+                <div className="p-0.5 bg-white border border-blue-900/40 rounded shadow-2xs flex items-center justify-center" title="Pindai QR WhatsApp Panitia 1 (0878-3018-8452)">
                   <img
                     src={formData.qrWa1Url || '/images/qr_wa_0878_navy.png'}
                     alt="QR WhatsApp Panitia Pilkades 1"
@@ -87,10 +88,18 @@ export default function PosterFooter() {
                   />
                 </div>
                 {/* QR WA 2 */}
-                <div className="p-0.5 bg-white border border-blue-900/40 rounded shadow-2xs flex items-center justify-center" title="Pindai QR WhatsApp Panitia 2">
+                <div className="p-0.5 bg-white border border-blue-900/40 rounded shadow-2xs flex items-center justify-center" title="Pindai QR WhatsApp Panitia 2 (0857-8635-5600)">
                   <img
                     src={formData.qrWa2Url || '/images/qr_wa_0857_navy.png'}
                     alt="QR WhatsApp Panitia Pilkades 2"
+                    className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+                  />
+                </div>
+                {/* QR WA 3 */}
+                <div className="p-0.5 bg-white border border-blue-900/40 rounded shadow-2xs flex items-center justify-center" title="Pindai QR WhatsApp Panitia 3 (0852-9231-0471)">
+                  <img
+                    src={formData.qrWa3Url || '/images/qr_wa_0852_navy.png'}
+                    alt="QR WhatsApp Panitia Pilkades 3"
                     className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
                   />
                 </div>

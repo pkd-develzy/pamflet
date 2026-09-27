@@ -77,6 +77,16 @@ export default function Sidebar() {
           {activeSection === 'identitas' && (
             <div className="p-3 space-y-2.5 bg-slate-900/50">
               <div>
+                <label className="block text-[11px] font-medium text-slate-400 mb-1">Judul Utama Poster</label>
+                <input
+                  type="text"
+                  value={formData.inputJudulPoster || 'SOSIALISASI TAHAPAN & JADWAL PILKADES'}
+                  onChange={e => updateFormField('inputJudulPoster', e.target.value)}
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-slate-100 focus:outline-none focus:border-amber-500 uppercase font-bold"
+                />
+              </div>
+
+              <div>
                 <label className="block text-[11px] font-medium text-slate-400 mb-1">Nama Desa</label>
                 <input
                   type="text"
@@ -563,6 +573,15 @@ export default function Sidebar() {
                   type="file"
                   accept="image/*"
                   onChange={e => handleFileUpload('qrWa2Url', e)}
+                  className="w-full text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] text-slate-400 mb-1">QR WhatsApp Kontak 3 (0852-9231-0471)</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={e => handleFileUpload('qrWa3Url', e)}
                   className="w-full text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer"
                 />
               </div>

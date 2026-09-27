@@ -89,7 +89,7 @@ export default function PosterSheet() {
               <div id="tableColRight" className="col-right flex flex-col gap-2 h-full min-h-0">
                 <TableBlock
                   blockId="blockKampanye"
-                  title="UNDIAN NOMOR URUT, KAMPANYE & MASA TENANG"
+                  title="TAHAPAN UNDIAN NOMOR URUT, KAMPANYE & MASA TENANG"
                   theme="amber"
                   headers={['NO', 'KEGIATAN KAMPANYE', 'WAKTU (BULAN)']}
                   rows={kampanyeRows}
@@ -98,7 +98,7 @@ export default function PosterSheet() {
 
                 <TableBlock
                   blockId="blockPemungutan"
-                  title="PEMUNGUTAN, PERHITUNGAN & PENETAPAN"
+                  title="TAHAPAN PEMUNGUTAN, PERHITUNGAN & PENETAPAN"
                   theme="red"
                   headers={['NO', 'KEGIATAN PEMUNGUTAN', 'WAKTU (BULAN)']}
                   rows={pemungutanRows}

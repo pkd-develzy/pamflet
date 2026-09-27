@@ -32,9 +32,10 @@ export default function PosterHeader() {
           <h1
             contentEditable
             suppressContentEditableWarning
+            onBlur={e => updateFormField('inputJudulPoster', e.currentTarget.textContent.trim())}
             className="poster-header-title text-base sm:text-xl md:text-2xl font-black text-white tracking-wider uppercase font-sans my-1 leading-tight drop-shadow-sm"
           >
-            PENGUMUMAN TAHAPAN &amp; JADWAL PILKADES
+            {formData.inputJudulPoster || 'SOSIALISASI TAHAPAN & JADWAL PILKADES'}
           </h1>
 
           <p
