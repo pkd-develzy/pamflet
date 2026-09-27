@@ -1,19 +1,110 @@
+import * as htmlToImage from 'html-to-image';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
 /**
- * Wait for all document fonts and images to be fully rendered
+ * Wait for all document fonts, images, and layout reflow to be fully rendered
  */
 async function prepareExportEnvironment() {
   if (document.fonts && document.fonts.ready) {
     await document.fonts.ready;
   }
-  // Brief pause for browser rendering tick & reflow
-  await new Promise(resolve => setTimeout(resolve, 150));
+  // Allow time for browser layout tick and reflow at 1:1 scale
+  await new Promise(resolve => setTimeout(resolve, 250));
 }
 
 /**
- * Export element to ultra-sharp, pixel-perfect PDF using native high-res canvas + jsPDF
+ * Filter function to ignore editor controls and interactive guides
+ */
+function exportFilter(node) {
+  if (!node) return true;
+  if (node.classList && (
+    node.classList.contains('no-print') ||
+    node.classList.contains('editor-control') ||
+    node.classList.contains('table-actions-toolbar')
+  )) {
+    return false;
+  }
+  if (node.getAttribute && (
+    node.getAttribute('data-html2canvas-ignore') === 'true' ||
+    node.getAttribute('data-no-print') === 'true'
+  )) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Render DOM element to high-res PNG Data URL using native browser SVG engine
+ * with fallback to html2canvas
+ */
+async function renderElementToDataUrl(element, renderScale) {
+  try {
+    return await htmlToImage.toPng(element, {
+      pixelRatio: renderScale,
+      backgroundColor: '#ffffff',
+      cacheBust: true,
+      skipAutoScale: true,
+      filter: exportFilter
+    });
+  } catch (err) {
+    console.warn('htmlToImage fell back to html2canvas:', err);
+    const canvas = await html2canvas(element, {
+      scale: renderScale,
+      useCORS: true,
+      allowTaint: true,
+      letterRendering: false,
+      backgroundColor: '#ffffff',
+      imageTimeout: 20000,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight,
+      ignoreElements: (el) => !exportFilter(el)
+    });
+    return canvas.toDataURL('image/png', 1.0);
+  }
+}
+
+/**
+ * Render DOM element to high-res Blob using native browser SVG engine
+ * with fallback to html2canvas
+ */
+async function renderElementToBlob(element, renderScale) {
+  try {
+    return await htmlToImage.toBlob(element, {
+      pixelRatio: renderScale,
+      backgroundColor: '#ffffff',
+      cacheBust: true,
+      skipAutoScale: true,
+      filter: exportFilter
+    });
+  } catch (err) {
+    console.warn('htmlToImage toBlob fell back to html2canvas:', err);
+    const canvas = await html2canvas(element, {
+      scale: renderScale,
+      useCORS: true,
+      allowTaint: true,
+      letterRendering: false,
+      backgroundColor: '#ffffff',
+      imageTimeout: 20000,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight,
+      ignoreElements: (el) => !exportFilter(el)
+    });
+    return await new Promise((resolve, reject) => {
+      canvas.toBlob((b) => {
+        if (b) resolve(b);
+        else reject(new Error('Gagal konversi canvas ke Blob PNG'));
+      }, 'image/png', 1.0);
+    });
+  }
+}
+
+/**
+ * Export element to ultra-sharp, pixel-perfect PDF using native browser rendering + jsPDF
  */
 export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, onStart, onComplete, onError }) {
   const element = document.getElementById(elementId);
@@ -30,7 +121,7 @@ export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, o
   try {
     if (onStart) onStart();
 
-    // Temporarily disable preview scale so the element is measured at full 1:1 physical size
+    // Temporarily reset preview scale so the element is measured at full 1:1 physical size
     if (scaleBox) {
       scaleBox.style.transition = 'none';
       scaleBox.style.transform = 'none';
@@ -45,46 +136,11 @@ export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, o
     const pdfFormat = isAlur ? 'a4' : (isA4 ? 'a4' : (isA3 ? 'a3' : [329, 483]));
     const orientation = isAlur ? 'landscape' : 'portrait';
 
-    // Scale 3.5 provides true 300+ DPI print-ready density without hitting canvas memory limits
+    // Scale 3.5 provides true 300+ DPI print-ready density without hitting memory limits
     const renderScale = isA4 ? 4 : 3.5;
 
-    const canvas = await html2canvas(element, {
-      scale: renderScale,
-      useCORS: true,
-      allowTaint: true,
-      letterRendering: false,
-      backgroundColor: '#ffffff',
-      imageTimeout: 20000,
-      scrollX: 0,
-      scrollY: 0,
-      windowWidth: element.scrollWidth,
-      windowHeight: element.scrollHeight,
-      onclone: (clonedDoc) => {
-        const style = clonedDoc.createElement('style');
-        style.textContent = `
-          * {
-            -webkit-font-smoothing: antialiased !important;
-            -moz-osx-font-smoothing: grayscale !important;
-            text-rendering: optimizeLegibility !important;
-          }
-          th, td {
-            vertical-align: middle !important;
-          }
-        `;
-        clonedDoc.head.appendChild(style);
-
-        const imgs = clonedDoc.getElementsByTagName('img');
-        for (let i = 0; i < imgs.length; i++) {
-          imgs[i].style.imageRendering = '-webkit-optimize-contrast';
-        }
-      },
-      ignoreElements: (el) => {
-        if (!el) return false;
-        if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;
-        if (el.getAttribute && (el.getAttribute('data-html2canvas-ignore') === 'true' || el.getAttribute('data-no-print') === 'true')) return true;
-        return false;
-      }
-    });
+    // Use native browser rendering to preserve exact text baseline & vertical alignment
+    const dataUrl = await renderElementToDataUrl(element, renderScale);
 
     // Create jsPDF document with exact paper size & orientation
     const doc = new jsPDF({
@@ -98,7 +154,6 @@ export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, o
     const pdfHeight = doc.internal.pageSize.getHeight();
 
     // Embed high-res PNG image into jsPDF
-    const dataUrl = canvas.toDataURL('image/png', 1.0);
     doc.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'SLOW');
     doc.save(fileName || `Pamflet_Pilkades_${formatName}_HDPlus_Siap_Cetak.pdf`);
 
@@ -116,7 +171,7 @@ export async function exportToPdf({ elementId, paperSize = 'a3plus', fileName, o
 }
 
 /**
- * Export element to ultra-sharp, lossless PNG image (300+ DPI, non-pixelated)
+ * Export element to ultra-sharp, lossless PNG image (300+ DPI, non-pixelated, exact vertical alignment)
  */
 export async function exportToImage({ elementId, paperSize = 'a3plus', fileName, onStart, onComplete, onError }) {
   const element = document.getElementById(elementId);
@@ -149,62 +204,18 @@ export async function exportToImage({ elementId, paperSize = 'a3plus', fileName,
     // Scale 3.5 provides true 300+ DPI print-ready density (A3 ~ 3928 x 5556 px) with zero pixelation
     const renderScale = isA4 ? 4 : 3.5;
 
-    const canvas = await html2canvas(element, {
-      scale: renderScale,
-      useCORS: true,
-      allowTaint: true,
-      letterRendering: false,
-      backgroundColor: '#ffffff',
-      imageTimeout: 20000,
-      scrollX: 0,
-      scrollY: 0,
-      windowWidth: element.scrollWidth,
-      windowHeight: element.scrollHeight,
-      onclone: (clonedDoc) => {
-        const style = clonedDoc.createElement('style');
-        style.textContent = `
-          * {
-            -webkit-font-smoothing: antialiased !important;
-            -moz-osx-font-smoothing: grayscale !important;
-            text-rendering: optimizeLegibility !important;
-          }
-          th, td {
-            vertical-align: middle !important;
-          }
-        `;
-        clonedDoc.head.appendChild(style);
-
-        const imgs = clonedDoc.getElementsByTagName('img');
-        for (let i = 0; i < imgs.length; i++) {
-          imgs[i].style.imageRendering = '-webkit-optimize-contrast';
-        }
-      },
-      ignoreElements: (el) => {
-        if (!el) return false;
-        if (el.classList && (el.classList.contains('no-print') || el.classList.contains('editor-control'))) return true;
-        if (el.getAttribute && (el.getAttribute('data-html2canvas-ignore') === 'true' || el.getAttribute('data-no-print') === 'true')) return true;
-        return false;
-      }
-    });
+    // Use native browser rendering to preserve exact text baseline & vertical alignment
+    const blob = await renderElementToBlob(element, renderScale);
 
     // Stream download via Blob URL for high memory efficiency on high-megapixel image
-    await new Promise((resolve, reject) => {
-      canvas.toBlob((blob) => {
-        if (!blob) {
-          reject(new Error('Gagal mengonversi canvas ke Blob PNG'));
-          return;
-        }
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.download = fileName || `Pamflet_Pilkades_${formatName}_HDPlus_Lossless.png`;
-        link.href = url;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(url), 4000);
-        resolve();
-      }, 'image/png', 1.0);
-    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = fileName || `Pamflet_Pilkades_${formatName}_HDPlus_Lossless.png`;
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
 
     if (onComplete) onComplete();
   } catch (err) {

@@ -58,64 +58,81 @@
 }
 
 .page-a4 .poster-inner-frame {
-  padding: 4px !important;
-  gap: 3.5px !important;
+  padding: 3.5px !important;
+  gap: 2.5px !important;
+}
+
+.page-a4 .poster-content-flow {
+  gap: 2.5px !important;
 }
 
 .page-a4 .poster-header-box {
-  padding: 5px 8px !important;
+  padding: 4px 8px !important;
 }
 
 .page-a4 .poster-header-title {
-  font-size: 15px !important;
+  font-size: 14px !important;
+  margin-top: 1px !important;
+  margin-bottom: 1px !important;
 }
 
 .page-a4 .poster-header-sub {
-  font-size: 8px !important;
+  font-size: 7.8px !important;
 }
 
 .page-a4 .poster-header-desc {
   font-size: 6.8px !important;
-  white-space: nowrap !important;
-  max-width: 100% !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+  max-width: 95% !important;
+  margin-top: 1px !important;
 }
 
 .page-a4 .poster-header-logo {
-  width: 48px !important;
-  height: 48px !important;
+  width: 44px !important;
+  height: 44px !important;
 }
 
 .page-a4 .banner-hari-h {
-  padding: 4px 6px !important;
+  padding: 3.5px 6px !important;
 }
 
 .page-a4 .banner-hari-h-title {
-  font-size: 17px !important;
+  font-size: 16px !important;
+  margin-top: 1px !important;
+  margin-bottom: 1px !important;
 }
 
 .page-a4 .banner-hari-h-sub {
-  font-size: 7.5px !important;
+  font-size: 7.2px !important;
 }
 
 .page-a4 .banner-hari-h-cta {
-  font-size: 12px !important;
+  font-size: 11px !important;
 }
 
 .page-a4 .panitia-box {
-  padding: 3px 5px !important;
+  padding: 2.5px 4px !important;
 }
 
 .page-a4 .panitia-card-header {
-  min-height: 32px !important;
-  font-size: 6px !important;
+  min-height: 28px !important;
+  padding: 1px 1px !important;
+}
+
+.page-a4 .panitia-card-header span {
+  font-size: 5.8px !important;
   line-height: 1.15 !important;
-  padding: 1.5px 2px !important;
 }
 
 .page-a4 .panitia-card-body {
-  min-height: 17px !important;
-  font-size: 7px !important;
-  padding: 1px 2px !important;
+  min-height: 16px !important;
+  padding: 1px 1px !important;
+}
+
+.page-a4 .panitia-card-body span {
+  font-size: 6.5px !important;
+  line-height: 1.15 !important;
 }
 
 .page-a4 .panitia-badge {
@@ -125,35 +142,51 @@
   margin-bottom: 1px !important;
 }
 
+.page-a4 .table-col-no {
+  width: 22px !important;
+}
+
+.page-a4 .table-col-kegiatan {
+  width: auto !important;
+}
+
+.page-a4 .table-col-waktu {
+  width: 78px !important;
+}
+
 .page-a4 .table-block-wrapper table th {
-  padding-top: 1.5px !important;
-  padding-bottom: 1.5px !important;
-  padding-left: 3px !important;
-  padding-right: 3px !important;
-  font-size: 7.5px !important;
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+  font-size: 7.2px !important;
 }
 
 .page-a4 .table-block-wrapper table td {
-  padding-top: 1px !important;
-  padding-bottom: 1px !important;
-  padding-left: 3px !important;
-  padding-right: 3px !important;
-  font-size: 7px !important;
-  line-height: 1.2 !important;
+  padding-top: 0.8px !important;
+  padding-bottom: 0.8px !important;
+  padding-left: 2.5px !important;
+  padding-right: 2.5px !important;
+  font-size: 6.8px !important;
+  line-height: 1.18 !important;
 }
 
 .page-a4 .table-header-bar {
-  padding-top: 4px !important;
-  padding-bottom: 4px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   padding-left: 8px !important;
   padding-right: 8px !important;
   min-height: 22px !important;
+  height: 22px !important;
   align-items: center !important;
   display: flex !important;
 }
 
 .page-a4 .table-header-title {
   font-size: 8.5px !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
 }
 
 .page-a4 .panitia-header-badge {
@@ -253,10 +286,11 @@
 }
 
 .page-a3plus .poster-header-desc {
-  font-size: 10px !important;
+  font-size: 9.8px !important;
+  line-height: 1.35 !important;
   margin-top: 4px !important;
-  white-space: nowrap !important;
-  max-width: 100% !important;
+  white-space: normal !important;
+  max-width: 95% !important;
 }
 
 .page-a3plus .poster-header-logo {
@@ -306,6 +340,18 @@
   margin-bottom: 2px !important;
 }
 
+.page-a3plus .table-col-no {
+  width: 36px !important;
+}
+
+.page-a3plus .table-col-kegiatan {
+  width: auto !important;
+}
+
+.page-a3plus .table-col-waktu {
+  width: 135px !important;
+}
+
 .page-a3plus .table-block-wrapper table th {
   padding-top: 4px !important;
   padding-bottom: 4px !important;
@@ -324,17 +370,21 @@
 }
 
 .page-a3plus .table-header-bar {
-  padding-top: 6.5px !important;
-  padding-bottom: 6.5px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   padding-left: 12px !important;
   padding-right: 12px !important;
   min-height: 32px !important;
+  height: 32px !important;
   align-items: center !important;
   display: flex !important;
 }
 
 .page-a3plus .table-header-title {
   font-size: 13px !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
 }
 
 .page-a3plus .panitia-header-badge {
@@ -450,9 +500,10 @@
 
 .page-a3 .poster-header-desc {
   font-size: 8.5px !important;
+  line-height: 1.3 !important;
   margin-top: 3px !important;
-  white-space: nowrap !important;
-  max-width: 100% !important;
+  white-space: normal !important;
+  max-width: 95% !important;
 }
 
 .page-a3 .poster-header-logo {
@@ -502,6 +553,18 @@
   margin-bottom: 1.5px !important;
 }
 
+.page-a3 .table-col-no {
+  width: 32px !important;
+}
+
+.page-a3 .table-col-kegiatan {
+  width: auto !important;
+}
+
+.page-a3 .table-col-waktu {
+  width: 125px !important;
+}
+
 .page-a3 .table-block-wrapper table th {
   padding-top: 3px !important;
   padding-bottom: 3px !important;
@@ -520,22 +583,23 @@
 }
 
 .page-a3 .table-header-bar {
-  padding-top: 4.5px !important;
-  padding-bottom: 4.5px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   padding-left: 10px !important;
   padding-right: 10px !important;
   min-height: 28px !important;
+  height: 28px !important;
   align-items: center !important;
   display: flex !important;
 }
 
 .page-a3 .table-header-title {
-  font-size: 11px !important;
+  font-size: 10.5px !important;
   font-weight: 900 !important;
   letter-spacing: 0.04em !important;
-  line-height: 1 !important;
-  display: flex !important;
-  align-items: center !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
 }
 
 .page-a3 .panitia-header-badge {
@@ -673,13 +737,17 @@
   border-radius: 2px;
 }
 
-/* Slogan must strictly remain on a single line */
+/* Slogan wraps naturally and is never cut off */
 .poster-header-desc {
-  white-space: nowrap !important;
-  max-width: 100% !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  white-space: normal !important;
+  max-width: 95% !important;
+  line-height: 1.3 !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
   display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
 }
 [contenteditable="true"]:focus {
   outline: 2px solid #d4af37;
@@ -696,6 +764,17 @@
 .poster-sheet td {
   vertical-align: middle;
   line-height: normal;
+}
+
+/* Base Responsive Table Column Widths */
+.table-col-no {
+  width: 28px;
+}
+.table-col-kegiatan {
+  width: auto;
+}
+.table-col-waktu {
+  width: 120px;
 }
 
 .poster-sheet .table-header-bar {

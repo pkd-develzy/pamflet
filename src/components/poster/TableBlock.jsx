@@ -118,13 +118,13 @@ export default function TableBlock({
       {/* Header Bar: Sovereign Executive Style with Gold Hairline */}
       <div className={`table-header-bar px-3 flex items-center justify-between ${themeConfig.bar} select-none shrink-0 min-h-[26px] sm:min-h-[28px]`}>
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <span className="flex items-center justify-center shrink-0">
+          <span className="flex items-center justify-center shrink-0 self-center">
             {themeConfig.icon}
           </span>
           <span
             contentEditable
             suppressContentEditableWarning
-            className="table-header-title font-black uppercase tracking-wider font-sans text-white drop-shadow-2xs leading-none flex items-center"
+            className="table-header-title font-black uppercase tracking-wider font-sans text-white drop-shadow-2xs leading-normal self-center inline-block"
           >
             {title}
           </span>
@@ -138,9 +138,9 @@ export default function TableBlock({
       >
         <table className="w-full h-full border-collapse text-left border border-slate-300 table-fixed">
           <colgroup>
-            <col style={{ width: '32px' }} />
-            <col />
-            <col style={{ width: '130px' }} />
+            <col className="table-col-no" />
+            <col className="table-col-kegiatan" />
+            <col className="table-col-waktu" />
           </colgroup>
           <thead>
             <tr className={`border-b border-slate-300 font-extrabold text-[8px] sm:text-[8.5px] uppercase tracking-wider ${themeConfig.th} shrink-0`}>

@@ -41,7 +41,7 @@ export default function PosterHeader() {
           <p
             contentEditable
             suppressContentEditableWarning
-            className="poster-header-desc text-[8px] sm:text-[9px] text-sky-300 font-medium italic mx-auto leading-tight mt-1 whitespace-nowrap overflow-hidden text-ellipsis max-w-none"
+            className="poster-header-desc text-[8px] sm:text-[8.5px] text-sky-200 font-medium italic mx-auto leading-normal mt-1 max-w-[94%] text-center"
           >
             Mewujudkan Pemilihan Kepala Desa yang Demokratis, Transparan, Netral, dan Berintegritas Menuju Desa {formData.inputNamaDesa} Maju dan Modern
           </p>

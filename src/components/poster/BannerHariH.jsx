@@ -92,18 +92,18 @@ export default function BannerHariH() {
           </svg>
         </div>
 
-        <div className="flex-1 flex flex-col justify-center text-left min-w-0">
+        <div className="flex-1 flex flex-col justify-center self-center text-left min-w-0">
           <div
             contentEditable
             suppressContentEditableWarning
-            className="banner-hari-h-cta text-sm sm:text-base font-black tracking-widest uppercase font-sans leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
+            className="banner-hari-h-cta text-sm sm:text-base font-black tracking-widest uppercase font-sans leading-snug text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] m-0 p-0"
           >
             GUNAKAN HAK PILIH!
           </div>
           <div
             contentEditable
             suppressContentEditableWarning
-            className="text-[8px] sm:text-[9px] text-white/95 mt-1 leading-tight font-medium"
+            className="text-[8px] sm:text-[9px] text-white/95 mt-0.5 leading-snug font-medium"
           >
             Satu Suara Anda Menentukan Masa Depan Desa {formData.inputNamaDesa}
           </div>
